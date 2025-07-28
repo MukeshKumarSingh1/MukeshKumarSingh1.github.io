@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @MukeshKumarSingh1
-- 👀 I’m interested in Cyber Security, AI/ML/DL/DNN/CNN/GenAI
-- 🌱 I’m currently learning AI/ML/DL/DNN/CNN/GenAI
+- 👀 I’m interested in Cyber Security, AI/ML/DL/DNN/CNN/GenAI/LLM
+- 🌱 I’m currently exploring AI/ML/DL/DNN/CNN/GenAI/LLM
 
 
 <!---
