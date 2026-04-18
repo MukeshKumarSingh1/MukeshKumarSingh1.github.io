@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Real-Time Network Anomaly Detection | Mukesh Kumar Singh - AI Security & Cybersecurity</title>
+  <meta name="description" content="Real-time network anomaly detection system leveraging live packet capture, IDS (Zeek/Suricata/Snort), and unsupervised machine learning (Isolation Forest, Autoencoders, LSTM). Dockerized pipeline for SOC workflows and enterprise security operations.">
+  <meta name="keywords" content="network anomaly detection, real-time intrusion detection, Zeek, Suricata, machine learning security, Isolation Forest, autoencoders, LSTM network, Docker security, SOC automation, network forensics">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Real-Time Network Anomaly Detection - AI-Powered Security Pipeline">
+  <meta property="og:type" content="project">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/network-anomaly-detection.html">
+  <meta property="og:description" content="Dockerized network anomaly detection pipeline combining live packet capture, intrusion detection systems, and unsupervised machine learning for real-time threat detection.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-network-anomaly.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real-Time Network Anomaly Detection">
+  <meta name="twitter:description" content="Dockerized pipeline for real-time network anomaly detection using live packet capture, IDS, and ML algorithms.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/network-anomaly-detection.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafcff;
+      color: #1a2a3a;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .logo, .nav-logo {
+      font-family: 'Space Grotesk', monospace;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Header */
+    .site-header {
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo a {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: linear-gradient(135deg, #0f2b3d, #1b5a7a);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e4e;
+      transition: color 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: #1a6d8f;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #1a2a3a;
+    }
+
+    /* Hero Section - Project Header */
+    .project-hero {
+      background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%);
+      color: white;
+      padding: 3rem 0 2.5rem;
+      border-bottom: 4px solid #f4a261;
+    }
+
+    .project-hero .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .hero-content {
+      flex: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(244, 162, 97, 0.2);
+      color: #f4a261;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(244, 162, 97, 0.3);
+    }
+
+    .project-hero h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+      color: #a0c4db;
+      font-size: 0.85rem;
+    }
+
+    .hero-meta i {
+      margin-right: 0.5rem;
+    }
+
+    .hero-description {
+      font-size: 1rem;
+      color: #cbdde9;
+      max-width: 700px;
+    }
+
+    .hero-stats {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1rem;
+    }
+
+    .stat-item {
+      margin-bottom: 0.8rem;
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f4a261;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: #a0c4db;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #2c3e4e;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 0.8rem;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+
+    .github-link:hover {
+      background: #1a6d8f;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0 3rem;
+    }
+
+    .content-section {
+      margin-bottom: 2rem;
+      scroll-margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .section-icon {
+      width: 38px;
+      height: 38px;
+      background: #eef3fc;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f4a261;
+      font-size: 1.1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      color: #0a1922;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 1.3rem;
+      margin-bottom: 1rem;
+      border: 1px solid #eef2f8;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin: 0.8rem 0 0.5rem;
+      color: #f4a261;
+    }
+
+    .card h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .pipeline-flow {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+
+    .flow-step {
+      flex: 1;
+      min-width: 150px;
+      background: #f8fafd;
+      padding: 0.8rem;
+      border-radius: 12px;
+      text-align: center;
+      border-top: 3px solid #f4a261;
+    }
+
+    .flow-step i {
+      font-size: 1.3rem;
+      color: #f4a261;
+      margin-bottom: 0.3rem;
+    }
+
+    .flow-step h4 {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+
+    .flow-step p {
+      font-size: 0.75rem;
+      color: #4a6272;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .tech-tag {
+      background: #eef3fc;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #f4a261;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .info-box {
+      background: #f8fafd;
+      padding: 0.8rem;
+      border-radius: 12px;
+      border-left: 3px solid #f4a261;
+      font-size: 0.9rem;
+    }
+
+    .info-box strong {
+      color: #f4a261;
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .code-block {
+      background: #1e2a36;
+      color: #e2e8f0;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-family: 'Monaco', monospace;
+      font-size: 0.75rem;
+      overflow-x: auto;
+      margin: 0.8rem 0;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #0f1a22;
+      color: #cbdbe6;
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .social-links a {
+      color: #cbdbe6;
+      margin-left: 0.8rem;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover {
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+      .project-hero h1 {
+        font-size: 1.6rem;
+      }
+      .navbar {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .section-header h2 {
+        font-size: 1.2rem;
+      }
+      .pipeline-flow {
+        flex-direction: column;
+      }
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      .site-header, .site-footer, .github-link {
+        display: none;
+      }
+      .card {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">Mukesh Kumar Singh</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- Project Hero -->
+<section class="project-hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-badge"><i class="fas fa-chart-line"></i> Production-Ready Security Pipeline</span>
+      <h1>Real-Time Network Anomaly Detection</h1>
+      <div class="hero-meta">
+        <span><i class="fab fa-github"></i> GitHub Repository</span>
+        <span><i class="fas fa-calendar-alt"></i> Active Development</span>
+        <span><i class="fas fa-tag"></i> Network Security · ML · Docker</span>
+      </div>
+      <p class="hero-description">A modular, Dockerized pipeline for real-time network anomaly detection combining live packet capture, intrusion detection systems (Zeek/Suricata), and unsupervised machine learning algorithms.</p>
+      <a href="https://github.com/MukeshKumarSingh1/Real-Time-Network-Anomaly-Detection" class="github-link" target="_blank">
+        <i class="fab fa-github"></i> View on GitHub
+        <i class="fas fa-external-link-alt" style="font-size: 0.75rem;"></i>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Pipeline Components</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3</div>
+        <div class="stat-label">ML Algorithms</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">Docker</div>
+        <div class="stat-label">Containerized Deployment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container">
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-project-diagram"></i></div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="card">
+        <p>This project presents a modular, dockerized pipeline for real-time network anomaly detection leveraging live packet capture, intrusion detection systems, and machine learning. The system is designed for Security Operations Centers (SOCs), research environments, and organizations requiring advanced network monitoring capabilities.</p>
+        
+        <h3>Key Capabilities</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Live Packet Capture</strong>Continuous network traffic ingestion using tcpdump, tshark, or scapy with automated rotation</div>
+          <div class="info-box"><strong>IDS Enrichment</strong>Zeek, Suricata, or Snort processing extracts HTTP, DNS, SSL, and alert logs</div>
+          <div class="info-box"><strong>ML Detection</strong>Unsupervised algorithms (Isolation Forest, Autoencoders, LSTM) identify novel threats</div>
+          <div class="info-box"><strong>Dockerized Deployment</strong>Consistent, portable environment across any infrastructure</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Architecture -->
+    <section id="pipeline" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-stream"></i></div>
+        <h2>Pipeline Architecture</h2>
+      </div>
+      <div class="card">
+        <div class="pipeline-flow">
+          <div class="flow-step">
+            <i class="fas fa-network-wired"></i>
+            <h4>1. Live Capture</h4>
+            <p>tcpdump / tshark / scapy<br>5-minute .pcap rotation</p>
+          </div>
+          <div class="flow-step">
+            <i class="fas fa-shield-alt"></i>
+            <h4>2. IDS Enrichment</h4>
+            <p>Zeek / Suricata / Snort<br>HTTP, DNS, SSL, Alerts</p>
+          </div>
+          <div class="flow-step">
+            <i class="fas fa-chart-line"></i>
+            <h4>3. Feature Extraction</h4>
+            <p>Connection durations<br>Byte counts, protocols</p>
+          </div>
+          <div class="flow-step">
+            <i class="fas fa-brain"></i>
+            <h4>4. ML Detection</h4>
+            <p>Isolation Forest<br>Autoencoders, LSTM</p>
+          </div>
+          <div class="flow-step">
+            <i class="fas fa-bell"></i>
+            <h4>5. Alerting</h4>
+            <p>Real-time notifications<br>SOC integration</p>
+          </div>
+        </div>
+        
+        <h3>How It Works</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li style="margin-bottom: 0.6rem; padding-left: 1.3rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261; font-weight: bold;">1.</span> <strong>Live Packet Capture:</strong> Network packets are captured in real time using tools like tcpdump, tshark, or scapy. Captured traffic is periodically saved into .pcap files (e.g., every 5 minutes) through an automated script or cron job.</li>
+          <li style="margin-bottom: 0.6rem; padding-left: 1.3rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261; font-weight: bold;">2.</span> <strong>Traffic Enrichment with IDS:</strong> Each .pcap file is processed by powerful IDS tools such as Zeek, Suricata, or Snort. These tools extract detailed logs (e.g., HTTP, DNS, SSL, alerts), providing enriched insights into network behavior and potential threats.</li>
+          <li style="margin-bottom: 0.6rem; padding-left: 1.3rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261; font-weight: bold;">3.</span> <strong>Machine Learning-Based Anomaly Detection:</strong> Extracted logs and features—such as connection durations, byte counts, protocols, signatures, and network flow statistics—are fed into unsupervised anomaly detection algorithms (e.g., Isolation Forest, Autoencoders, LSTM-based models) implemented with frameworks such as scikit-learn, TensorFlow, or PyTorch.</li>
+          <li style="margin-bottom: 0.6rem; padding-left: 1.3rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261; font-weight: bold;">4.</span> <strong>Automated and Near Real-Time Analysis:</strong> The system continuously analyzes enriched network data, flags suspicious activity, and can notify users or security systems, enabling timely response to emerging anomalies.</li>
+          <li style="margin-bottom: 0.6rem; padding-left: 1.3rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261; font-weight: bold;">5.</span> <strong>Dockerized Deployment:</strong> The entire pipeline is containerized with Docker to simplify deployment, scalability, and environment consistency. This enables you to easily run the system across different machines or cloud environments without complex setup.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="tech-stack" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-cubes"></i></div>
+        <h2>Technology Stack</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div>
+            <h3>Packet Capture</h3>
+            <div class="tech-stack">
+              <span class="tech-tag">tcpdump</span>
+              <span class="tech-tag">tshark</span>
+              <span class="tech-tag">scapy</span>
+            </div>
+            <h3>IDS Tools</h3>
+            <div class="tech-stack">
+              <span class="tech-tag">Zeek (Bro)</span>
+              <span class="tech-tag">Suricata</span>
+              <span class="tech-tag">Snort</span>
+            </div>
+          </div>
+          <div>
+            <h3>ML Frameworks</h3>
+            <div class="tech-stack">
+              <span class="tech-tag">scikit-learn</span>
+              <span class="tech-tag">TensorFlow</span>
+              <span class="tech-tag">PyTorch</span>
+            </div>
+            <h3>Algorithms</h3>
+            <div class="tech-stack">
+              <span class="tech-tag">Isolation Forest</span>
+              <span class="tech-tag">Autoencoders</span>
+              <span class="tech-tag">LSTM</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Infrastructure</h3>
+          <div class="tech-stack">
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Docker Compose</span>
+            <span class="tech-tag">Python 3.8+</span>
+            <span class="tech-tag">Cron</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ML Algorithms Deep Dive -->
+    <section id="ml-algorithms" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-bar"></i></div>
+        <h2>Anomaly Detection Algorithms</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box">
+            <strong><i class="fas fa-tree"></i> Isolation Forest</strong>
+            <p>Ensemble method that isolates anomalies instead of profiling normal points. Efficient for high-dimensional network flow data with linear time complexity.</p>
+          </div>
+          <div class="info-box">
+            <strong><i class="fas fa-microchip"></i> Autoencoders</strong>
+            <p>Neural networks that learn compressed representations. Anomalies exhibit high reconstruction error, ideal for complex pattern detection in traffic.</p>
+          </div>
+          <div class="info-box">
+            <strong><i class="fas fa-chart-line"></i> LSTM Networks</strong>
+            <p>Recurrent neural networks capturing temporal dependencies in network traffic. Effective for detecting behavioral anomalies over time sequences.</p>
+          </div>
+        </div>
+        
+        <h3>Feature Engineering</h3>
+        <ul style="list-style: none; padding-left: 0;">
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">•</span> Connection duration and packet counts</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">•</span> Byte ratios and protocol distributions</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">•</span> Flow statistics (inter-arrival times, burst patterns)</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">•</span> DNS/HTTP metadata from Zeek logs</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">•</span> Alert signatures from Suricata/Snort</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Docker Deployment -->
+    <section id="deployment" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fab fa-docker"></i></div>
+        <h2>Dockerized Deployment</h2>
+      </div>
+      <div class="card">
+        <p>The entire pipeline is containerized using Docker, ensuring consistent execution across development, testing, and production environments. This architecture enables:</p>
+        <ul style="list-style: none; padding-left: 0;">
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">✓</span> One-command deployment across any Linux host or cloud instance</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">✓</span> Isolated dependencies with no conflicts</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">✓</span> Scalable microservices architecture</li>
+          <li style="margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative;"><span style="position: absolute; left: 0; color: #f4a261;">✓</span> Easy integration with orchestration tools (Kubernetes, Docker Swarm)</li>
+        </ul>
+        
+        <div class="code-block">
+          <i class="fas fa-terminal"></i> Quick Start<br><br>
+          # Clone the repository<br>
+          git clone https://github.com/MukeshKumarSingh1/Real-Time-Network-Anomaly-Detection.git<br>
+          cd Real-Time-Network-Anomaly-Detection<br><br>
+          # Build and run with Docker Compose<br>
+          docker-compose up -d
+        </div>
+        
+        <p style="margin-top: 0.8rem;">The Docker Compose configuration orchestrates all pipeline components, including packet capture services, IDS processors, ML inference engines, and alerting modules.</p>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-briefcase"></i></div>
+        <h2>Use Cases & Applications</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>SOC Integration</strong>Deploy as a sensor within security operations centers to detect zero-day threats and insider activity.</div>
+          <div class="info-box"><strong>Research & Education</strong>Platform for studying network behavior, testing detection algorithms, and cybersecurity training.</div>
+          <div class="info-box"><strong>Cloud Environments</strong>Monitor east-west traffic within VPCs for anomalous lateral movement.</div>
+          <div class="info-box"><strong>Critical Infrastructure</strong>Protect industrial networks with tailored detection for OT/IoT protocols.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the Real-Time Network Anomaly Detection project.</p>
+      <a href="https://github.com/MukeshKumarSingh1/Real-Time-Network-Anomaly-Detection" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fab fa-github"></i> Access the Full Repository
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Real-Time Network Anomaly Detection</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
