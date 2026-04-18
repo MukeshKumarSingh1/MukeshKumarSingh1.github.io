@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Windows Forensics Framework | Mukesh Kumar Singh - Digital Forensics Expert</title>
+  <meta name="description" content="Complete Windows Forensics Framework covering case categorization, evidence acquisition, registry analysis, browser forensics, email investigation, and complete digital investigation methodology.">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta property="og:title" content="Windows Forensics Framework - Complete Digital Investigation Methodology">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/Windows-Forensics-Framework">
+  <meta property="og:description" content="A complete digital forensics framework for Windows systems: case scoping, evidence acquisition, analysis techniques, and artifact examination.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #c49a6c; }
+    .hero-badge { background: rgba(196,154,108,0.2); color: #e8c39e; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(232,195,158,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #c49a6c; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #c49a6c; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; margin-top: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #c49a6c; font-size: 0.9rem; }
+    .info-box strong { color: #c49a6c; display: block; margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .crime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .crime-category { background: #f8fafd; padding: 0.8rem; border-radius: 12px; }
+    .crime-category h4 { color: #c49a6c; margin-bottom: 0.4rem; font-size: 0.95rem; }
+    .crime-category ul { margin-left: 1rem; font-size: 0.8rem; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.8rem; border-radius: 10px; font-family: monospace; font-size: 0.75rem; overflow-x: auto; margin: 0.8rem 0; }
+    .tool-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .tool-tag { background: #eef3fc; padding: 0.2rem 0.7rem; border-radius: 20px; font-size: 0.7rem; font-weight: 500; color: #c49a6c; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://www.mukeshkumarsingh.com/Windows-Forensics-Framework/index.html" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-search"></i> Complete Digital Forensics Methodology</span>
+        <h1>Windows Forensics Framework</h1>
+        <div class="hero-meta">
+          <span><i class="fas fa-calendar-alt"></i> Comprehensive Guide</span>
+          <span><i class="fas fa-tag"></i> Digital Forensics · Incident Response · Investigation</span>
+        </div>
+        <p class="hero-description">A complete digital forensics framework for Windows systems: case categorization, evidence acquisition, registry analysis, browser forensics, email investigation, and USB device tracking. Designed for forensic investigators, incident responders, and security professionals.</p>
+      </div>
+      <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem;">
+        <div><span style="font-size:1.5rem; font-weight:700; color:#e8c39e;">9</span><div style="font-size:0.75rem;">Core Sections</div></div>
+        <div style="margin-top:0.8rem;"><span style="font-size:1.5rem; font-weight:700; color:#e8c39e;">50+</span><div style="font-size:0.75rem;">Artifact Locations</div></div>
+        <div style="margin-top:0.8rem;"><span style="font-size:1.5rem; font-weight:700; color:#e8c39e;">30+</span><div style="font-size:0.75rem;">Forensic Tools</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Section 1: Preparation, Case Categorization and Scoping -->
+    <section id="case-scoping" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h2>Preparation, Case Categorization and Scoping</h2>
+      </div>
+      <div class="card">
+        <p><strong>Case Related Info:</strong> Crime Type/Category, Investigation Type, Damages made (Financial, Social, IT disruption), Location (Within/Outside Organization), Systems Involved, OS Involved.</p>
+        <div class="crime-grid">
+          <div class="crime-category"><h4>Crime Against Individuals</h4><ul><li>Email Spoofing</li><li>Phishing</li><li>Hacking</li><li>Cyber-Stalking</li><li>Obscene Material</li><li>Unauthorized Access</li><li>Fraud & Cheating</li></ul></div>
+          <div class="crime-category"><h4>Crime Against Organizations</h4><ul><li>Unauthorized Access</li><li>Data/IP Theft</li><li>Malware</li><li>Hacking</li></ul></div>
+          <div class="crime-category"><h4>Crime Against Society</h4><ul><li>Cyber Trafficking</li><li>Financial Crimes</li><li>Online Gambling</li><li>Online Forgery</li><li>Cyber Terrorism</li><li>Pirated Software</li></ul></div>
+        </div>
+        <h3>Feasibility Check</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Evidence Related</strong>Likelihood of evidence on media, Strength of evidence, Volatile/Non-volatile evidence</div>
+          <div class="info-box"><strong>Scope of Investigation</strong>Systems, Users, Locations, 3rd Party vendors, Social media involved</div>
+          <div class="info-box"><strong>Time & Cost Analysis</strong>Value of info vs recovery cost, Access level required, Manpower availability</div>
+          <div class="info-box"><strong>Tools Availability</strong>Identify and select required tools, Purchase new software/hardware/licenses if needed</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Investigation Related Info -->
+    <section id="investigation-info" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-info-circle"></i></div>
+        <h2>Investigation Related Info</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Case Prioritization</strong>Owner of the system involved, Level of initial intelligence (IoC)</div>
+          <div class="info-box"><strong>Impact/Likely Value</strong>Loss of company data (IP), Loss of customer base, Market value & reputation, Financial loss</div>
+          <div class="info-box"><strong>Investigation Cost</strong>Number of systems involved, Complexity of case, Examination type (Internal/External vendor)</div>
+          <div class="info-box"><strong>Investigation Approach</strong>Review case information, Review initial IOC, Review evidence involved, Technical expertise required</div>
+        </div>
+        <h3>Tasks in Investigation</h3>
+        <ul>
+          <li>IoC gathering</li>
+          <li>Initial Timeline Creation</li>
+          <li>Evidence identification and Acquisition (Local/Remote, Live/Dead)</li>
+          <li>Creation of Tasks Checklist</li>
+          <li>Identify best methods of investigation</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 3: Evidence Identification -->
+    <section id="evidence-identification" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>Evidence Identification</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div><h3>Volatile Evidence</h3><ul><li>Running Processes</li><li>Network Connections</li><li>Memory-only Malware</li><li>Opened Files/Sockets</li><li>Encryption Keys</li></ul></div>
+          <div><h3>Non-Volatile Evidence</h3><ul><li>File System (FAT/NTFS/ReFS)</li><li>Logical Evidence (OS view)</li><li>Physical Evidence (Disk image)</li><li>Registry Hives</li><li>Event Logs</li></ul></div>
+        </div>
+        <h3>Technical Category of Evidence</h3>
+        <div class="two-column">
+          <div><strong>User Activity:</strong> File download, Program execution, File creation/opening/deletion, USB activity, Account usage</div>
+          <div><strong>System Activity:</strong> Browser activity, Chat activity, Internet activity, Installed/deleted applications, Deleted registry entries</div>
+        </div>
+        <h3>Evidence Locations</h3>
+        <div class="two-column">
+          <div><strong>Local:</strong> Hard Drive · USB · Peripheral Devices · System Share · Sharepoint</div>
+          <div><strong>Cloud:</strong> Dropbox · OneDrive · Google Drive · Azure · AWS</div>
+          <div><strong>Mobile:</strong> Android · iOS · BlackBerry · Windows Mobile</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Evidence Acquisition -->
+    <section id="acquisition" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-copy"></i></div>
+        <h2>Evidence Acquisition</h2>
+      </div>
+      <div class="card">
+        <h3>Acquisition Types</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Local/Remote</strong>Physical access vs network-based acquisition</div>
+          <div class="info-box"><strong>Logical/Physical</strong>OS-level view vs full disk image</div>
+          <div class="info-box"><strong>Live/Dead</strong>Running system vs powered-off system</div>
+          <div class="info-box"><strong>Full/Partial</strong>Complete image vs targeted collection</div>
+        </div>
+        
+        <h3>Write Blockers</h3>
+        <div class="tool-list"><span class="tool-tag">Software: Safeblock, Registry modifications</span><span class="tool-tag">Hardware: Tableau, WiebeTech, ICS Write Blocker, EPOS WriteProtect</span></div>
+        
+        <h3>Imaging Commands</h3>
+        <div class="code-block"># DD Imaging<br>dd if=/dev/sda of=/path/to/evidence.raw bs=512 status=progress conv=noerror,sync<br><br># DC3DD with hashing<br>dc3dd if=/dev/sdb of=case1.disk1.raw hash=sha1 hash=md5 log=image.log<br><br># Over Network (netcat)<br># Receiver: nc -l -p 5555 | dd of=/mnt/evidence/net_dd.raw<br># Sender: dd if=/dev/sda | nc 192.168.0.1 5555</div>
+        
+        <h3>Acquisition Tools</h3>
+        <div class="two-column">
+          <div><strong>Open Source:</strong> dd, dc3dd, ddrescue, ewfacquire, FTK Imager, KAPE, Memoryze, Redline, Dumpit.exe</div>
+          <div><strong>Commercial:</strong> EnCase, FTK, Tableau, LogiCube, X-Ways Imager, Magnet Acquire</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Evidence Extraction and Analysis -->
+    <section id="extraction-analysis" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Evidence Extraction and Analysis</h2>
+      </div>
+      <div class="card">
+        <h3>Extraction Techniques</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>File Carving</strong>recoverjpeg, foremost, photorec, scalpel, bulk-extractor</div>
+          <div class="info-box"><strong>Keyword Searching</strong>grep-based searches across allocated and unallocated space</div>
+          <div class="info-box"><strong>Registry Analysis</strong>RegRipper, Registry Explorer, FTK Registry Analyzer</div>
+          <div class="info-box"><strong>MFT Analysis</strong>analyzeMFT, mft2csv, SleuthKit</div>
+        </div>
+        <h3>Analysis Focus: 5 Ws</h3>
+        <ul>
+          <li><strong>What</strong> happened?</li>
+          <li><strong>Where</strong> did it happen?</li>
+          <li><strong>When</strong> did it happen?</li>
+          <li><strong>Who</strong> did it?</li>
+          <li><strong>Why</strong> did it happen?</li>
+        </ul>
+        <h3>Artifact Analysis</h3>
+        <div class="two-column">
+          <div><strong>Registry Analysis:</strong> System info, AutoStart, USB devices, UserAssist, RecentDocs, RunMRU</div>
+          <div><strong>Shell Items:</strong> LNK Files, Jump Lists, Shellbags</div>
+          <div><strong>Browser Forensics:</strong> IE/Edge, Chrome, Firefox history, cache, cookies, downloads</div>
+          <div><strong>Email Forensics:</strong> Outlook PST/OST, Exchange EDB, Webmail analysis</div>
+          <div><strong>USB Forensics:</strong> USBSTOR registry keys, Setupapi logs, MountPoints2</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Report Writing -->
+    <section id="report-writing" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-file-alt"></i></div>
+        <h2>Report Writing</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Comprehensive Forensic Reports</strong>Case Overview, Methodology, Findings, Interpretations, Limitations, Conclusion</div>
+          <div class="info-box"><strong>Chain of Custody Documentation</strong>Identification, Custody History, Handling Actions, Location Tracking, Authentication</div>
+          <div class="info-box"><strong>Evidence Logs</strong>Capture chain of custody and handling for each evidence item</div>
+          <div class="info-box"><strong>Expert Testimony Preparation</strong>Review reports, Anticipate cross-examination, Simplify complex concepts</div>
+        </div>
+        <h3>Documentation Requirements</h3>
+        <ul>
+          <li>Case Details: Case Name/Number, Investigator info, Case description</li>
+          <li>Evidence Details: Evidence type, Make/Model, Serial Number, Drive Capacity, Hash values</li>
+          <li>Process Documentation: Tools utilized, Exact commands, Procedures followed</li>
+          <li>Chain of Custody: Chronological documentation of evidence handling</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 7: Enterprise Forensics Techniques -->
+    <section id="enterprise-forensics" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-building"></i></div>
+        <h2>Enterprise Forensics Techniques</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Remote Acquisition</strong>F-Response like tools to mount drives remotely, Acquiring RAM through network</div>
+          <div class="info-box"><strong>Cloud Storage Acquisition</strong>Dropbox, OneDrive, Amazon S3, Google Drive</div>
+          <div class="info-box"><strong>Triage Acquisition</strong>Identifying what to collect, Data collection with custom scripts</div>
+          <div class="info-box"><strong>Multi-Disk Acquisition</strong>RAID, JBOD (Just a Bunch Of Disks)</div>
+          <div class="info-box"><strong>Memory Forensics</strong>FTK Imager, Memoryze, Redline, Dumpit.exe, Volatility</div>
+          <div class="info-box"><strong>Enterprise Tools</strong>EnCase Enterprise, FTK Enterprise, KAPE for rapid triage</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Forensics Evidence in the Court -->
+    <section id="court-evidence" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-gavel"></i></div>
+        <h2>Forensics Evidence in the Court</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Legal / Compliance Requirements</strong>HR investigation, Employee related internal investigation, LEA Investigation</div>
+          <div class="info-box"><strong>Local Laws and Regulations</strong>Local Country specific laws, International Laws, Industry specific laws, Regional laws, GDPR</div>
+          <div class="info-box"><strong>Evidence Admissibility</strong>Forensic soundness, Chain of custody integrity, Hash verification, Proper documentation</div>
+          <div class="info-box"><strong>Expert Testimony</strong>Role of forensic expert, Preparation for cross-examination, Legal standards (Daubert/Frye)</div>
+        </div>
+        <div class="code-block">
+# Evidence Integrity Verification
+# Compute hash of original evidence
+md5sum /dev/sdb > original.hash
+
+# Verify after imaging
+md5sum evidence.dd | diff - original.hash
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 9: Forensics Tools -->
+    <section id="forensics-tools" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-toolbox"></i></div>
+        <h2>Forensics Tools</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div><h3>Commercial Tools</h3><div class="tool-list"><span class="tool-tag">EnCase</span><span class="tool-tag">FTK</span><span class="tool-tag">Cellebrite</span><span class="tool-tag">Magnet AXIOM</span><span class="tool-tag">X-Ways</span></div></div>
+          <div><h3>Open Source Tools</h3><div class="tool-list"><span class="tool-tag">Autopsy/SleuthKit</span><span class="tool-tag">Volatility</span><span class="tool-tag">KAPE</span><span class="tool-tag">Wireshark</span><span class="tool-tag">dd/dc3dd</span></div></div>
+          <div><h3>Registry Analysis</h3><div class="tool-list"><span class="tool-tag">RegRipper</span><span class="tool-tag">Registry Explorer</span><span class="tool-tag">FTK Registry Analyzer</span></div></div>
+          <div><h3>Browser Forensics</h3><div class="tool-list"><span class="tool-tag">NirSoft Tools</span><span class="tool-tag">Hindsight</span><span class="tool-tag">SQLite Browser</span></div></div>
+          <div><h3>File Carving</h3><div class="tool-list"><span class="tool-tag">Foremost</span><span class="tool-tag">Scalpel</span><span class="tool-tag">Photorec</span><span class="tool-tag">Bulk Extractor</span></div></div>
+          <div><h3>Memory Forensics</h3><div class="tool-list"><span class="tool-tag">Volatility</span><span class="tool-tag">Redline</span><span class="tool-tag">Dumpit</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete Windows Forensics Framework.</p>
+      <a href="https://www.mukeshkumarsingh.com/Windows-Forensics-Framework/index.html" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fas fa-book-open"></i> Access the Full Original Framework
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Windows Forensics Framework</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
