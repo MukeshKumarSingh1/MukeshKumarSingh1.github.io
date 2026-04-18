@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>KAPE & Autopsy Enterprise Automation | Mukesh Kumar Singh - DFIR Automation</title>
+  <meta name="description" content="Enterprise-wide automated incident response and full disk forensics using open-source tools: KAPE for triage collection, Autopsy with Solr for deep-dive analysis. Real-time integration with SIEM, ticketing systems, and threat intelligence platforms.">
+  <meta name="keywords" content="KAPE, Autopsy, Solr, DFIR automation, enterprise forensics, incident response automation, SIEM integration, ServiceNow integration, forensic triage, full disk forensics">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="KAPE & Autopsy Enterprise Automation - Open Source DFIR Pipeline">
+  <meta property="og:type" content="project">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/kape-autopsy-automation.html">
+  <meta property="og:description" content="Build a scalable, automated DFIR system using KAPE for real-time evidence collection and Autopsy (Solr-powered) for full-disk forensic analysis. Cost-effective alternative to commercial solutions.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-kape-autopsy.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="KAPE & Autopsy Enterprise Automation">
+  <meta name="twitter:description" content="Enterprise DFIR automation using KAPE and Autopsy with Solr. Cost-effective alternative to commercial solutions.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/kape-autopsy-automation.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #f4a261; }
+    .hero-badge { background: rgba(244,162,97,0.2); color: #f4a261; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(244,162,97,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #f4a261; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .github-link { display: inline-flex; align-items: center; gap: 0.5rem; background: #2c3e4e; color: white; padding: 0.5rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 500; margin-top: 0.8rem; font-size: 0.85rem; transition: background 0.2s; }
+    .github-link:hover { background: #f4a261; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f4a261; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #f4a261; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #f4a261; font-size: 0.85rem; }
+    .info-box strong { color: #f4a261; display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .pipeline-flow { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.8rem 0; }
+    .flow-step { flex: 1; min-width: 150px; background: #f8fafd; padding: 0.8rem; border-radius: 12px; text-align: center; border-top: 3px solid #f4a261; }
+    .flow-step i { font-size: 1.3rem; color: #f4a261; margin-bottom: 0.3rem; }
+    .flow-step h4 { font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .flow-step p { font-size: 0.7rem; color: #5a6e7c; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tool-item { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #f4a261; font-size: 0.85rem; }
+    .tool-item strong { display: block; color: #f4a261; margin-bottom: 0.2rem; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.5rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.8rem; border-radius: 10px; font-family: monospace; font-size: 0.75rem; overflow-x: auto; margin: 0.8rem 0; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .pipeline-flow { flex-direction: column; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://github.com/MukeshKumarSingh1/KAPE-And-Autopsy-Enterprise-Automation" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-robot"></i> Enterprise DFIR Automation</span>
+        <h1>KAPE & Autopsy Enterprise Automation</h1>
+        <div class="hero-meta">
+          <span><i class="fab fa-github"></i> GitHub Repository</span>
+          <span><i class="fas fa-calendar-alt"></i> Originally Developed 2020 · Updated 2025</span>
+          <span><i class="fas fa-tag"></i> KAPE · Autopsy · Solr · SIEM Integration</span>
+        </div>
+        <p class="hero-description">Enterprise-wide automated incident response and full disk forensics using open-source tools. Real-time evidence collection with KAPE, deep-dive analysis with Autopsy (Solr-powered), and seamless integration with SIEM, ticketing systems, and threat intelligence platforms.</p>
+        <a href="https://github.com/MukeshKumarSingh1/KAPE-And-Autopsy-Enterprise-Automation" class="github-link" target="_blank">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">Real-Time</span><div class="stat-label">Evidence Collection</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">Open Source</span><div class="stat-label">Cost-Effective</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">Enterprise</span><div class="stat-label">Scalable Architecture</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-project-diagram"></i></div>
+        <h2>Project Overview</h2>
+      </div>
+      <div class="card">
+        <p>This project provides a practical, open-source guide to building a scalable, automated, and cost-effective Digital Forensics and Incident Response (DFIR) system using <strong>KAPE</strong> (Kroll Artifact Parser and Extractor) and <strong>Autopsy</strong> (powered by Solr). Designed for real-time incident response and deep-dive forensic investigations across enterprise environments, this system eliminates the high costs typically associated with commercial DFIR solutions.</p>
+        <p style="margin-top: 0.75rem;">Originally developed and completed in mid-2020, this project remains a powerful and practical solution for organizations seeking a modular, automated DFIR workflow. The architecture supports seamless integration with existing enterprise tools including SIEMs, threat intelligence platforms, ticketing systems (e.g., ServiceNow), and other telemetry collectors.</p>
+        
+        <div class="two-column" style="margin-top: 0.8rem;">
+          <div class="info-box"><strong>✅ Automated Real-Time Collection</strong>KAPE-based evidence gathering triggered by alerts or schedules</div>
+          <div class="info-box"><strong>✅ Full Disk Forensic Analysis</strong>Autopsy with Solr indexing for fast searching and correlation</div>
+          <div class="info-box"><strong>✅ Enterprise Integration</strong>Connect with SIEM, ServiceNow, Threat Intel platforms</div>
+          <div class="info-box"><strong>✅ Cost-Effective</strong>100% open-source — no commercial licensing required</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Architecture -->
+    <section id="pipeline" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-stream"></i></div>
+        <h2>Automated DFIR Pipeline</h2>
+      </div>
+      <div class="card">
+        <div class="pipeline-flow">
+          <div class="flow-step"><i class="fas fa-bell"></i><h4>1. Trigger</h4><p>SIEM alert, Ticket, Schedule</p></div>
+          <div class="flow-step"><i class="fas fa-database"></i><h4>2. Collection</h4><p>KAPE triage & collection</p></div>
+          <div class="flow-step"><i class="fas fa-search"></i><h4>3. Processing</h4><p>Autopsy, Solr indexing</p></div>
+          <div class="flow-step"><i class="fas fa-chart-line"></i><h4>4. Analysis</h4><p>Forensic examination</p></div>
+          <div class="flow-step"><i class="fas fa-file-alt"></i><h4>5. Reporting</h4><p>Findings, case management</p></div>
+        </div>
+        
+        <div class="code-block">
+# Trigger-based automation example
+# 1. ServiceNow ticket created
+# 2. KAPE triggered on affected endpoints
+kape.exe --tsource C:\ --tdest \\server\cases\case_12345\ --target !SANS_Triage --module !EZViewer
+# 3. Evidence ingested into Autopsy
+autopsy --case case_12345 --ingest /evidence/path
+# 4. Solr indexes for fast search
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPE Section -->
+    <section id="kape" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-bolt"></i></div>
+        <h2>KAPE: Automated Evidence Collection</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>What is KAPE?</strong>Kroll Artifact Parser and Extractor — a triage tool that rapidly collects and parses forensic artifacts from Windows systems.</div>
+          <div class="info-box"><strong>Key Capabilities</strong>Targeted artifact collection, modular architecture, custom modules, parallel processing, command-line automation.</div>
+        </div>
+        
+        <h3>Enterprise Deployment</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Push Deployment</strong>Deploy via SCCM, PDQ, or Group Policy</div>
+          <div class="info-box"><strong>Remote Execution</strong>Trigger via PowerShell Remoting</div>
+          <div class="info-box"><strong>Central Storage</strong>Collect to network shares or cloud</div>
+          <div class="info-box"><strong>Custom Modules</strong>Organization-specific targets</div>
+        </div>
+        
+        <h3>Common KAPE Targets & Modules</h3>
+        <div class="tool-grid">
+          <div class="tool-item"><strong>!SANS_Triage</strong>Comprehensive triage of key forensic artifacts</div>
+          <div class="tool-item"><strong>!EZViewer</strong>Quick artifact extraction and viewing</div>
+          <div class="tool-item"><strong>Custom Targets</strong>Browser artifacts, registry, event logs, MFT, USN journal</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Autopsy & Solr Section -->
+    <section id="autopsy" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-microscope"></i></div>
+        <h2>Autopsy with Solr: Full Disk Forensics</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Autopsy</strong>Forensic platform built on The Sleuth Kit. Supports disk imaging, file system analysis, timeline generation.</div>
+          <div class="info-box"><strong>Solr Integration</strong>Apache Solr provides enterprise-grade search indexing. Enables fast keyword searching across massive datasets.</div>
+        </div>
+        
+        <h3>Automated Ingestion Workflow</h3>
+        <div class="phase-table">
+          <table><th>Phase</th><th>Automation Steps</th></tr>
+          <tr><td><strong>Case Creation</strong></td><td>Autopsy CLI creates case, adds evidence, configures ingest modules</td></tr>
+          <tr><td><strong>Ingest Processing</strong></td><td>Hash lookup, file carving, timeline generation, keyword search</td></tr>
+          <tr><td><strong>Solr Indexing</strong></td><td>Full text indexing for rapid search across all case data</td></tr>
+          <tr><td><strong>Reporting</strong></td><td>Automated report generation, HTML/PDF export</td></tr>
+          </table>
+        </div>
+        
+        <div class="code-block">
+# Autopsy CLI automation example
+autopsy --create-case /cases/CASE_001 --add-image /evidence/image.dd --ingest-modules "hashlookup,filetype,keywordsearch" --solr http://solr-server:8983/solr/autopsy
+        </div>
+      </div>
+    </section>
+
+    <!-- Enterprise Integration -->
+    <section id="integration" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-plug"></i></div>
+        <h2>Enterprise Integration Architecture</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>SIEM Integration</strong>Splunk, Sentinel, QRadar, ELK — trigger collection on alerts</div>
+          <div class="info-box"><strong>Ticketing Systems</strong>ServiceNow, Jira, TheHive — auto-create tickets</div>
+          <div class="info-box"><strong>Threat Intelligence</strong>MISP, OpenCTI — cross-reference findings</div>
+          <div class="info-box"><strong>EDR Integration</strong>CrowdStrike, Microsoft Defender — supplement telemetry</div>
+        </div>
+        
+        <div class="code-block">
+# PowerShell automation for ServiceNow integration
+$ticket = Get-ServiceNowTicket -Number "INC0012345"
+if ($ticket.priority -eq "Critical") {
+    Invoke-KAPE -Targets "!SANS_Triage" -Output "\\server\cases\$($ticket.number)"
+    Start-AutopsyCase -CaseName $ticket.number
+    Update-ServiceNowTicket -Status "Forensics In Progress"
+}
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-briefcase"></i></div>
+        <h2>Use Cases & Incident Types</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Ransomware Investigation</strong>Collect ransomware notes, encryption logs, C2 communications</div>
+          <div class="info-box"><strong>Insider Threat</strong>USB activity, file access logs, email exfiltration</div>
+          <div class="info-box"><strong>Phishing Response</strong>Email artifacts, browser cache, download history</div>
+          <div class="info-box"><strong>Malware Outbreak</strong>Rapid triage across endpoints, hash correlation</div>
+          <div class="info-box"><strong>Data Breach</strong>Full disk forensics to determine scope and timeline</div>
+          <div class="info-box"><strong>Compliance Investigation</strong>Artifact collection for HR, legal requirements</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Components -->
+    <section id="components" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-cubes"></i></div>
+        <h2>Project Components</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div><strong>📘 KAPE Basics & Advanced Usage</strong><br>Getting started, customizing modules, enterprise deployment</div>
+          <div><strong>🔌 Integration Patterns</strong><br>SIEM, ServiceNow, Threat Intel, EDR connections</div>
+          <div><strong>⚙️ Automation Architecture</strong><br>Trigger-based collection, PowerShell automation</div>
+          <div><strong>🧠 Autopsy Full Disk Forensics</strong><br>Setup, automation, Solr indexing</div>
+          <div><strong>🔗 KAPE + Autopsy Pipeline</strong><br>Seamless automation between collection and analysis</div>
+          <div><strong>📊 Reporting & Presentation</strong><br>Automated findings, case management</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repository Structure -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fab fa-github-alt"></i></div>
+        <h2>Repository Structure</h2>
+      </div>
+      <div class="card">
+        <div style="background: #f8fafd; padding: 0.8rem; border-radius: 12px; font-family: monospace; font-size: 0.75rem;">
+          <i class="fas fa-folder-open"></i> KAPE-And-Autopsy-Enterprise-Automation/<br>
+          ├── <i class="fas fa-folder"></i> kape/ &nbsp;&nbsp;# KAPE modules, targets, deployment scripts<br>
+          ├── <i class="fas fa-folder"></i> autopsy/ &nbsp;&nbsp;# Autopsy config, Solr setup<br>
+          ├── <i class="fas fa-folder"></i> integrations/ &nbsp;&nbsp;# SIEM, ServiceNow connectors<br>
+          ├── <i class="fas fa-folder"></i> scripts/ &nbsp;&nbsp;# PowerShell, Python automation<br>
+          ├── <i class="fas fa-folder"></i> workflows/ &nbsp;&nbsp;# Incident-specific workflows<br>
+          └── <i class="fas fa-file-alt"></i> README.md &nbsp;&nbsp;# Project overview
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+          <a href="https://github.com/MukeshKumarSingh1/KAPE-And-Autopsy-Enterprise-Automation" class="github-link" target="_blank" style="background: #f4a261;">
+            <i class="fab fa-github"></i> Explore the Repository
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the KAPE & Autopsy Enterprise Automation project.</p>
+      <a href="https://github.com/MukeshKumarSingh1/KAPE-And-Autopsy-Enterprise-Automation" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fab fa-github"></i> Access the Full Repository
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Enterprise DFIR Automation (Open Source)</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
