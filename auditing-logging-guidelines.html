@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Guidelines for Auditing and Logging | Mukesh Kumar Singh - Cybersecurity Foundations</title>
+  <meta name="description" content="Foundational guidelines for implementing effective auditing and logging in systems and applications. Originally developed 2007-2008 to address gaps in SIEM and log management maturity, particularly for government organizations.">
+  <meta name="keywords" content="auditing guidelines, logging best practices, SIEM, log management, security auditing, compliance logging, NIST SP 800-92, ISO 27001 logging, PCI DSS logging, HIPAA audit controls">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Guidelines for Auditing and Logging - Foundational Security Reference">
+  <meta property="og:type" content="project">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/auditing-logging-guidelines.html">
+  <meta property="og:description" content="A unified set of guidelines for implementing effective auditing and logging in systems and applications. Covers log generation, collection, storage, monitoring, and compliance.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-auditing-logging.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guidelines for Auditing and Logging">
+  <meta name="twitter:description" content="Foundational guidelines for effective auditing and logging. Covers log generation, collection, storage, monitoring, and compliance.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/auditing-logging-guidelines.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #1a2a3a 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #b8860b; }
+    .hero-badge { background: rgba(184,134,11,0.2); color: #f4c542; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(244,197,66,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #f4c542; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .github-link, .pdf-link { display: inline-flex; align-items: center; gap: 0.5rem; background: #2c3e4e; color: white; padding: 0.5rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 500; margin-top: 0.8rem; margin-right: 0.8rem; font-size: 0.85rem; transition: background 0.2s; }
+    .github-link:hover { background: #b8860b; }
+    .pdf-link { background: #2c5a6e; }
+    .pdf-link:hover { background: #b8860b; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #b8860b; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #b8860b; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #b8860b; font-size: 0.85rem; }
+    .info-box strong { color: #b8860b; display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .history-note { background: #fef9e6; border-left: 4px solid #b8860b; padding: 0.8rem; border-radius: 12px; margin-bottom: 0.8rem; font-size: 0.9rem; }
+    .timeline { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0; }
+    .timeline-item { flex: 1; min-width: 120px; text-align: center; padding: 0.6rem; background: #f8fafd; border-radius: 10px; font-size: 0.8rem; }
+    .timeline-year { font-size: 1rem; font-weight: 700; color: #b8860b; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.5rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li { margin-bottom: 0.4rem; padding-left: 1.2rem; position: relative; font-size: 0.85rem; }
+    .checklist li:before { content: "✓"; position: absolute; left: 0; color: #b8860b; font-weight: bold; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.8rem; border-radius: 10px; font-family: monospace; font-size: 0.7rem; overflow-x: auto; margin: 0.8rem 0; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .timeline { flex-direction: column; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://github.com/MukeshKumarSingh1/Guidelines-for-Auditing-and-Logging" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-scroll"></i> Foundational Security Reference</span>
+        <h1>Guidelines for Auditing and Logging</h1>
+        <div class="hero-meta">
+          <span><i class="fab fa-github"></i> GitHub Repository</span>
+          <span><i class="fas fa-calendar-alt"></i> Published December 2008</span>
+          <span><i class="fas fa-tag"></i> Auditing · Logging · SIEM · Compliance</span>
+        </div>
+        <p class="hero-description">A unified set of guidelines for implementing effective auditing and logging in systems and applications. Originally developed to address gaps in SIEM and log management maturity, particularly for traditional government organizations.</p>
+        <div style="display: flex; flex-wrap: wrap;">
+          <a href="https://github.com/MukeshKumarSingh1/Guidelines-for-Auditing-and-Logging" class="github-link" target="_blank">
+            <i class="fab fa-github"></i> View on GitHub
+          </a>
+          <a href="https://github.com/MukeshKumarSingh1/Guidelines-for-Auditing-and-Logging/blob/main/cisg-2008-01-1.pdf" class="pdf-link" target="_blank">
+            <i class="fas fa-file-pdf"></i> Download PDF
+          </a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">2007-2008</span><div class="stat-label">Original Development</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">6</span><div class="stat-label">Core Principles</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">Govt</span><div class="stat-label">Focus Area</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- History Section -->
+    <section id="history" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-history"></i></div>
+        <h2>Project History & Origin</h2>
+      </div>
+      <div class="card">
+        <div class="history-note">
+          <i class="fas fa-timeline"></i> This project originated in the <strong>mid-2000s</strong>, when Security Information and Event Management (SIEM) and log management tools were still developing. Handling cybersecurity incidents—especially within traditional government organizations—presented significant challenges due to the absence of standardized practices for auditing and logging.
+        </div>
+        
+        <div class="timeline">
+          <div class="timeline-item"><span class="timeline-year">Mid-2000s</span><br>Project initiated</div>
+          <div class="timeline-item"><span class="timeline-year">Early 2007</span><br>Initial draft completed</div>
+          <div class="timeline-item"><span class="timeline-year">2007-2008</span><br>Refined by colleagues</div>
+          <div class="timeline-item"><span class="timeline-year">Dec 2008</span><br>Final document published</div>
+        </div>
+        
+        <p>To address this gap in standardized practices, a unified set of guidelines for implementing effective auditing and logging in systems and applications was developed. The final document, <strong>Guidelines for Auditing and Logging</strong>, was published in December 2008 and serves as a foundational reference for organizations seeking to strengthen their logging and auditing practices.</p>
+      </div>
+    </section>
+
+    <!-- Core Principles -->
+    <section id="principles" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-gem"></i></div>
+        <h2>Core Principles</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>📝 Completeness</strong>Log all relevant security events across systems, applications, and infrastructure.</div>
+          <div class="info-box"><strong>🛡️ Integrity Protection</strong>Logs protected from tampering, deletion, or unauthorized modification.</div>
+          <div class="info-box"><strong>🔍 Timeliness</strong>Real-time or near-real-time log collection and alerting.</div>
+          <div class="info-box"><strong>⚖️ Admissibility</strong>Logs meet evidentiary standards for legal proceedings.</div>
+          <div class="info-box"><strong>📊 Actionability</strong>Logs structured and normalized for automated alerting and correlation.</div>
+          <div class="info-box"><strong>🔐 Confidentiality</strong>Sensitive log data protected from unauthorized access.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Log Types -->
+    <section id="log-types" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-file-alt"></i></div>
+        <h2>Essential Log Types</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>🖥️ Operating System Logs</strong>Security logs, system logs, application logs, setup logs</div>
+          <div class="info-box"><strong>🌐 Network Device Logs</strong>Firewall, router/switch, IDS/IPS, VPN, proxy, DNS logs</div>
+          <div class="info-box"><strong>💾 Database Logs</strong>Access logs, audit trails, transaction logs, schema changes</div>
+          <div class="info-box"><strong>📧 Application Logs</strong>Web server logs, email logs, API logs, custom audit trails</div>
+          <div class="info-box"><strong>🔑 Authentication Logs</strong>Logins, privilege escalations, account lockouts, MFA events</div>
+          <div class="info-box"><strong>☁️ Cloud & SaaS Logs</strong>CloudTrail, Azure Activity Logs, O365 audit logs, CASB logs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auditing Framework -->
+    <section id="auditing" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-clipboard-list"></i></div>
+        <h2>Auditing Framework</h2>
+      </div>
+      <div class="card phase-table">
+        <table><th>Phase</th><th>Activities</th><th>Documentation</th></tr>
+        <tr><td><strong>1. Audit Planning</strong></td><td>Define scope, objectives, criteria</td><td>Audit charter, risk assessment</td></tr>
+        <tr><td><strong>2. Evidence Collection</strong></td><td>Gather logs, verify integrity</td><td>Evidence log, chain of custody</td></tr>
+        <tr><td><strong>3. Analysis & Testing</strong></td><td>Correlate events, identify gaps</td><td>Gap analysis, exception reports</td></tr>
+        <tr><td><strong>4. Reporting</strong></td><td>Document findings, recommendations</td><td>Audit report, remediation plan</td></tr>
+        <tr><td><strong>5. Remediation & Follow-up</strong></td><td>Track progress, verify fixes</td><td>Remediation tracking, policy updates</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Log Storage & Retention -->
+    <section id="storage" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>Log Storage & Retention</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>🏷️ Retention Policy</strong>90 days active, 1-7 years archive based on legal requirements</div>
+          <div class="info-box"><strong>🔒 Secure Storage</strong>Encryption at rest, access controls, immutable storage (WORM)</div>
+          <div class="info-box"><strong>🗄️ Centralized Collection</strong>SIEM, syslog server, cloud-native logging with NTP sync</div>
+          <div class="info-box"><strong>📁 Backup & Archival</strong>Regular backups, off-site storage, integrity verification</div>
+        </div>
+        <h3>Log Rotation & Management</h3>
+        <div class="checklist">
+          <li>Implement log rotation policies to prevent storage exhaustion</li>
+          <li>Compress archived logs to optimize storage</li>
+          <li>Maintain original log integrity during rotation</li>
+          <li>Document rotation schedule and retention periods</li>
+          <li>Test restoration from archived logs periodically</li>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIEM & Monitoring -->
+    <section id="siem" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>SIEM & Log Monitoring</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>📊 Log Normalization</strong>Standardize formats, timestamps, field names across sources</div>
+          <div class="info-box"><strong>⚠️ Alerting & Correlation</strong>Rule-based alerts, behavioral analytics, threat intelligence</div>
+          <div class="info-box"><strong>📈 Dashboards & Reporting</strong>Real-time visualization, compliance dashboards</div>
+          <div class="info-box"><strong>🔄 Incident Response Integration</strong>Automated ticket creation, case management</div>
+        </div>
+        <div class="code-block">
+# Example SIEM correlation rule
+# Multiple failed logins followed by successful login
+
+IF count(EventID 4625) > 5 FROM same_source_ip WITHIN 5 minutes
+AND THEN EventID 4624 FROM same_source_ip WITHIN 1 minute
+THEN ALERT "Possible brute force success" severity=HIGH
+        </div>
+      </div>
+    </section>
+
+    <!-- Compliance & Standards -->
+    <section id="compliance" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-gavel"></i></div>
+        <h2>Compliance & Regulatory Alignment</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>📋 NIST SP 800-92</strong>Guide to Computer Security Log Management</div>
+          <div class="info-box"><strong>🔐 ISO/IEC 27001</strong>Sections A.12.4 (Logging) and A.12.4.3 (Admin logs)</div>
+          <div class="info-box"><strong>🏦 PCI DSS</strong>Requirement 10: Track and monitor access</div>
+          <div class="info-box"><strong>⚕️ HIPAA</strong>Audit controls, access logs, security incident monitoring</div>
+          <div class="info-box"><strong>🌍 GDPR</strong>Logging of personal data access, breach notification</div>
+          <div class="info-box"><strong>🏢 SOX</strong>IT control logging, change management audit trails</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation Checklist -->
+    <section id="checklist" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-check-double"></i></div>
+        <h2>Implementation Checklist</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="checklist"><strong>Log Generation:</strong>
+            <li>All systems configured for logging</li>
+            <li>Critical events identified per source</li>
+            <li>Time synchronization via NTP</li>
+          </div>
+          <div class="checklist"><strong>Log Collection:</strong>
+            <li>Centralized collection point (SIEM/syslog)</li>
+            <li>Secure transmission (TLS)</li>
+            <li>Real-time forwarding capability</li>
+          </div>
+          <div class="checklist"><strong>Log Storage:</strong>
+            <li>Write-once, append-only storage</li>
+            <li>Access controls and segregation</li>
+            <li>Integrity hashing and verification</li>
+          </div>
+          <div class="checklist"><strong>Monitoring:</strong>
+            <li>Alert rules defined and tested</li>
+            <li>Incident response integration</li>
+            <li>Continuous improvement process</li>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repository Structure -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fab fa-github-alt"></i></div>
+        <h2>Repository Structure</h2>
+      </div>
+      <div class="card">
+        <div style="background: #f8fafd; padding: 0.8rem; border-radius: 12px; font-family: monospace; font-size: 0.75rem;">
+          <i class="fas fa-folder-open"></i> Guidelines-for-Auditing-and-Logging/<br>
+          ├── <i class="fas fa-file-pdf"></i> cisg-2008-01-1.pdf &nbsp;&nbsp;# Original 2008 document<br>
+          ├── <i class="fas fa-folder"></i> guidelines/ &nbsp;&nbsp;# Updated guidelines (markdown)<br>
+          ├── <i class="fas fa-folder"></i> checklists/ &nbsp;&nbsp;# Implementation checklists<br>
+          ├── <i class="fas fa-folder"></i> templates/ &nbsp;&nbsp;# Audit plan templates<br>
+          ├── <i class="fas fa-folder"></i> examples/ &nbsp;&nbsp;# Sample log configurations<br>
+          └── <i class="fas fa-file-alt"></i> README.md &nbsp;&nbsp;# Project overview
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+          <a href="https://github.com/MukeshKumarSingh1/Guidelines-for-Auditing-and-Logging" class="github-link" target="_blank" style="background: #b8860b;">
+            <i class="fab fa-github"></i> Explore the Repository
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete Guidelines for Auditing and Logging.</p>
+      <a href="https://github.com/MukeshKumarSingh1/Guidelines-for-Auditing-and-Logging" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fab fa-github"></i> Access the Full Repository
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Guidelines for Auditing and Logging (Est. 2008)</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
