@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Threat Hunting Project | Mukesh Kumar Singh - Cybersecurity Expert</title>
+  <meta name="description" content="Comprehensive Threat Hunting Framework: Proactive cyber defense methodology combining hypothesis-driven hunting, MITRE ATT&CK mapping, and advanced analytics to detect sophisticated adversaries before they strike.">
+  <meta name="keywords" content="threat hunting, proactive defense, MITRE ATT&CK, hypothesis-driven hunting, threat hunting maturity model, SIEM, EDR, detection engineering, Sigma rules, YARA rules, adversary emulation">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Threat Hunting Project - Proactive Cyber Defense Framework">
+  <meta property="og:type" content="project">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/threat-hunting.html">
+  <meta property="og:description" content="Enterprise-grade threat hunting methodology integrating intelligence-driven hunting, behavioral analytics, and automated detection engineering.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-threat-hunting.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Threat Hunting Project">
+  <meta name="twitter:description" content="Enterprise-grade threat hunting framework with MITRE ATT&CK mapping and detection engineering.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/threat-hunting.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #d45a4a; }
+    .hero-badge { background: rgba(212,90,74,0.2); color: #ff9f8f; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(255,159,143,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #ff9f8f; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .github-link { display: inline-flex; align-items: center; gap: 0.5rem; background: #2c3e4e; color: white; padding: 0.5rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 500; margin-top: 0.8rem; font-size: 0.85rem; transition: background 0.2s; }
+    .github-link:hover { background: #d45a4a; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #d45a4a; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #d45a4a; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #d45a4a; font-size: 0.85rem; }
+    .info-box strong { color: #d45a4a; display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .maturity-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .maturity-level { background: #f8fafd; padding: 0.8rem; border-radius: 12px; text-align: center; }
+    .maturity-level h4 { color: #d45a4a; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .maturity-level p { font-size: 0.75rem; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.5rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tool-item { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #d45a4a; font-size: 0.85rem; }
+    .tool-item strong { display: block; color: #d45a4a; margin-bottom: 0.2rem; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.6rem; border-radius: 10px; font-family: monospace; font-size: 0.7rem; overflow-x: auto; margin: 0.5rem 0; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .maturity-levels { grid-template-columns: 1fr 1fr; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://github.com/MukeshKumarSingh1/Threat-Hunting-Project" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-paw"></i> Proactive Cyber Defense</span>
+        <h1>Threat Hunting Project</h1>
+        <div class="hero-meta">
+          <span><i class="fab fa-github"></i> GitHub Repository</span>
+          <span><i class="fas fa-calendar-alt"></i> Active Development</span>
+          <span><i class="fas fa-tag"></i> Threat Hunting · MITRE ATT&CK · Detection Engineering</span>
+        </div>
+        <p class="hero-description">Enterprise-grade threat hunting framework integrating hypothesis-driven hunting, behavioral analytics, and automated detection engineering. Proactively identify sophisticated adversaries before they execute their objectives.</p>
+        <a href="https://github.com/MukeshKumarSingh1/Threat-Hunting-Project" class="github-link" target="_blank">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">5</span><div class="stat-label">Maturity Levels</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">4</span><div class="stat-label">Hunting Types</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">5</span><div class="stat-label">Hunting Phases</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Threat Hunting Maturity Model -->
+    <section id="maturity" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Threat Hunting Maturity Model</h2>
+      </div>
+      <div class="card">
+        <p>The Threat Hunting Maturity Model (THMM) defines organizational capability levels for proactive threat detection. Each level represents increasing automation, sophistication, and effectiveness.</p>
+        <div class="maturity-levels">
+          <div class="maturity-level"><h4>Level 0: Initial</h4><p>Minimal visibility, reactive only. No dedicated hunting.</p></div>
+          <div class="maturity-level"><h4>Level 1: Minimal</h4><p>Basic log collection, ad-hoc queries. Relies on analyst intuition.</p></div>
+          <div class="maturity-level"><h4>Level 2: Procedural</h4><p>Regular hunting cycles, documented procedures. Repeatable.</p></div>
+          <div class="maturity-level"><h4>Level 3: Innovative</h4><p>Custom analytics, automation, advanced tooling.</p></div>
+          <div class="maturity-level"><h4>Level 4: Leading</h4><p>Machine learning, autonomous hunting, adversary emulation.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hunting Methodologies -->
+    <section id="methodologies" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-search"></i></div>
+        <h2>Hunting Methodologies</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Intel-Driven Hunting</strong>Leverage threat intelligence (IOCs, TTPs) to hunt for known adversary behaviors.</div>
+          <div class="info-box"><strong>Hypothesis-Driven Hunting</strong>Develop hypotheses based on attacker TTPs or organizational risk.</div>
+          <div class="info-box"><strong>Analytics-Driven Hunting</strong>Leverage ML and behavioral analytics to identify anomalies.</div>
+          <div class="info-box"><strong>Custom Detection Engineering</strong>Translate adversary behaviors into detections with Sigma rules.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hunting Cycle -->
+    <section id="hunting-cycle" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-sync-alt"></i></div>
+        <h2>The Threat Hunting Cycle</h2>
+      </div>
+      <div class="card phase-table">
+        <table><th>Phase</th><th>Activities</th><th>Outputs</th></tr>
+        <tr><td><strong>1. Trigger</strong></td><td>Intelligence intake, hypothesis generation, alerts</td><td>Hunt initiation, scope</td></tr>
+        <tr><td><strong>2. Data Collection</strong></td><td>Identify sources, collect logs, enrich context</td><td>Enriched dataset</td></tr>
+        <tr><td><strong>3. Analysis</strong></td><td>Query, pivot, correlate, MITRE mapping</td><td>Findings, anomalies</td></tr>
+        <tr><td><strong>4. Response</strong></td><td>Escalate threats, contain, remediate</td><td>Incident response</td></tr>
+        <tr><td><strong>5. Feedback</strong></td><td>Update rules, refine hypotheses, share intelligence</td><td>New detections</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Data Sources -->
+    <section id="data-sources" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>Essential Data Sources</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Endpoint Telemetry</strong>EDR logs, process creation, network connections, registry changes</div>
+          <div class="info-box"><strong>Network Telemetry</strong>NetFlow, DNS logs, proxy logs, firewall logs, PCAP</div>
+          <div class="info-box"><strong>Identity & Authentication</strong>Windows Event Logs, LDAP, VPN logs, MFA logs</div>
+          <div class="info-box"><strong>Cloud & SaaS</strong>CloudTrail, Azure Activity Logs, O365 audit logs</div>
+          <div class="info-box"><strong>Email Security</strong>Email gateway logs, message tracking, phishing reports</div>
+          <div class="info-box"><strong>Threat Intelligence</strong>Commercial feeds, open-source intel, adversary profiles</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MITRE ATT&CK Mapping -->
+    <section id="mitre" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-project-diagram"></i></div>
+        <h2>MITRE ATT&CK Framework Integration</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Reconnaissance (TA0043)</strong>Active scanning, OSINT, phishing</div>
+          <div class="info-box"><strong>Initial Access (TA0001)</strong>Phishing, exploit public apps, valid accounts</div>
+          <div class="info-box"><strong>Execution (TA0002)</strong>PowerShell, scheduled tasks, WMI</div>
+          <div class="info-box"><strong>Persistence (TA0003)</strong>Registry run keys, scheduled tasks</div>
+          <div class="info-box"><strong>Privilege Escalation (TA0004)</strong>Token manipulation, bypass UAC</div>
+          <div class="info-box"><strong>Defense Evasion (TA0005)</strong>Obfuscation, disabling security tools</div>
+          <div class="info-box"><strong>Credential Access (TA0006)</strong>Dumping credentials, Kerberoasting</div>
+          <div class="info-box"><strong>Discovery (TA0007)</strong>Network enumeration, account discovery</div>
+          <div class="info-box"><strong>Lateral Movement (TA0008)</strong>PSExec, RDP, SMB, WinRM</div>
+          <div class="info-box"><strong>Collection (TA0009)</strong>Data staging, clipboard data</div>
+          <div class="info-box"><strong>Command & Control (TA0011)</strong>DGA, encrypted channels</div>
+          <div class="info-box"><strong>Exfiltration (TA0010)</strong>Data transfer, compression</div>
+          <div class="info-box"><strong>Impact (TA0040)</strong>Data destruction, ransomware</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tool Stack -->
+    <section id="tools" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-toolbox"></i></div>
+        <h2>Threat Hunting Tool Stack</h2>
+      </div>
+      <div class="card">
+        <div class="tool-grid">
+          <div class="tool-item"><strong>SIEM Platforms</strong>Splunk, Sentinel, ELK Stack, QRadar</div>
+          <div class="tool-item"><strong>EDR Solutions</strong>CrowdStrike, Defender, SentinelOne</div>
+          <div class="tool-item"><strong>Network Analysis</strong>Zeek, RITA, Wireshark, Arkime</div>
+          <div class="tool-item"><strong>Data Analytics</strong>Jupyter, Python (Pandas), R</div>
+          <div class="tool-item"><strong>Threat Intelligence</strong>MISP, OpenCTI, YARA, Sigma</div>
+          <div class="tool-item"><strong>Visualization</strong>Kibana, Grafana, BloodHound</div>
+          <div class="tool-item"><strong>Automation</strong>TheHive, Cortex, SOAR</div>
+          <div class="tool-item"><strong>Adversary Emulation</strong>Caldera, Atomic Red Team</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detection Engineering -->
+    <section id="detection" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-bell"></i></div>
+        <h2>Detection Engineering & Rule Development</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Sigma Rules</strong>Open standard for SIEM rule writing.<br><code>title: Suspicious PowerShell<br>detection: keywords: ['-EncodedCommand']</code></div>
+          <div class="info-box"><strong>YARA Rules</strong>Pattern matching for malware detection.<br><code>rule example { strings: $a = "malicious" condition: $a }</code></div>
+          <div class="info-box"><strong>KQL / SPL</strong>Platform-specific queries.<br><code>DeviceProcessEvents | where ProcessCommandLine contains "Invoke-Mimikatz"</code></div>
+          <div class="info-box"><strong>Detection Lifecycle</strong>Identify gaps → Develop hypothesis → Create logic → Validate → Deploy → Tune</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hunting Workflow -->
+    <section id="workflow" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
+        <h2>Hunting Workflow & Documentation</h2>
+      </div>
+      <div class="card phase-table">
+        <table><th>Component</th><th>Description</th></tr>
+        <tr><td><strong>Hunt Plan</strong></td><td>Objective, hypothesis, data sources, TTPs, timeline</td></tr>
+        <tr><td><strong>Query Library</strong></td><td>Validated hunting queries by TTP and platform</td></tr>
+        <tr><td><strong>Investigation Notes</strong></td><td>Step-by-step analysis, findings, evidence</td></tr>
+        <tr><td><strong>Findings Report</strong></td><td>Executive summary, IOCs, TTP mapping, recommendations</td></tr>
+        <tr><td><strong>Detection Ticket</strong></td><td>New rule requests, data source requirements</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Metrics & KPIs -->
+    <section id="metrics" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-simple"></i></div>
+        <h2>Hunting Metrics & KPIs</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Coverage Metrics</strong>MITRE TTP coverage, log source completeness</div>
+          <div class="info-box"><strong>Effectiveness Metrics</strong>Hunts performed, confirmed threats, detection gaps</div>
+          <div class="info-box"><strong>Efficiency Metrics</strong>Hunt duration, time to detect, false positive rates</div>
+          <div class="info-box"><strong>Maturity Metrics</strong>Automation percentage, hunt cadence, intel integration</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Repository Structure -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fab fa-github-alt"></i></div>
+        <h2>Repository Structure</h2>
+      </div>
+      <div class="card">
+        <div style="background: #f8fafd; padding: 0.8rem; border-radius: 12px; font-family: monospace; font-size: 0.75rem;">
+          <i class="fas fa-folder-open"></i> threat-hunting-project/<br>
+          ├── <i class="fas fa-folder"></i> hypotheses/ &nbsp;&nbsp;# Hypothesis-driven hunt docs<br>
+          ├── <i class="fas fa-folder"></i> queries/ &nbsp;&nbsp;# KQL, SPL, Sigma rules by TTP<br>
+          ├── <i class="fas fa-folder"></i> playbooks/ &nbsp;&nbsp;# Automated hunting workflows<br>
+          ├── <i class="fas fa-folder"></i> intelligence/ &nbsp;&nbsp;# Threat intel feeds<br>
+          ├── <i class="fas fa-folder"></i> reports/ &nbsp;&nbsp;# Hunt findings and metrics<br>
+          ├── <i class="fas fa-folder"></i> scripts/ &nbsp;&nbsp;# Python automation<br>
+          └── <i class="fas fa-file-alt"></i> README.md &nbsp;&nbsp;# Framework docs
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+          <a href="https://github.com/MukeshKumarSingh1/Threat-Hunting-Project" class="github-link" target="_blank" style="background: #d45a4a;">
+            <i class="fab fa-github"></i> Explore the Repository
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete Threat Hunting Project.</p>
+      <a href="https://github.com/MukeshKumarSingh1/Threat-Hunting-Project" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fab fa-github"></i> Access the Full Repository
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Threat Hunting & Cyber Defense Framework</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
