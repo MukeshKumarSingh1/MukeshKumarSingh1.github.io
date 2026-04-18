@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Digital Evidence Framework | Mukesh Kumar Singh - Digital Forensics Expert</title>
+  <meta name="description" content="Comprehensive framework for digital evidence collection, storage, processing, and presentation. Covers forensic soundness, chain of custody, acquisition methodologies, and legal admissibility standards.">
+  <meta name="keywords" content="digital evidence, forensic soundness, chain of custody, evidence collection, forensic imaging, evidence storage, E01 format, AFF, evidence processing, file carving, metadata analysis, forensic tools, EnCase, FTK, Autopsy, expert testimony">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Digital Evidence Collection, Storage, Processing, and Presentation">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/digital-evidence-framework.html">
+  <meta property="og:description" content="A comprehensive reference work on digital forensics: principles, methodologies, tools, and legal considerations for handling digital evidence.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-digital-evidence.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Digital Evidence Framework">
+  <meta name="twitter:description" content="Complete framework for digital evidence collection, storage, processing, and presentation. Forensic soundness and legal admissibility standards.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/digital-evidence-framework.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #c49a6c; }
+    .hero-badge { background: rgba(196,154,108,0.2); color: #e8c39e; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(232,195,158,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #e8c39e; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .book-note { background: #f5f0e8; border-left: 4px solid #c49a6c; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; font-size: 0.9rem; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #c49a6c; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #c49a6c; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #c49a6c; font-size: 0.85rem; }
+    .info-box strong { color: #c49a6c; display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tool-item { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #c49a6c; font-size: 0.85rem; }
+    .tool-item strong { display: block; color: #c49a6c; margin-bottom: 0.2rem; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.6rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.8rem; border-radius: 10px; font-family: monospace; font-size: 0.75rem; overflow-x: auto; margin: 0.8rem 0; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://www.mukeshkumarsingh.com/Digital-Evidence-Collection-Storage-Processing-and-Presentation/index.html" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-book"></i> Authoritative Reference Work</span>
+        <h1>Digital Evidence Collection, Storage, Processing, and Presentation</h1>
+        <div class="hero-meta">
+          <span><i class="fas fa-gavel"></i> Forensic Framework</span>
+          <span><i class="fas fa-tag"></i> Digital Forensics · Chain of Custody · Legal Admissibility</span>
+        </div>
+        <p class="hero-description">A complete framework for handling digital evidence from collection to courtroom. Covers forensic soundness principles, acquisition methodologies, storage security, processing techniques, and expert testimony preparation.</p>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">6</span><div class="stat-label">Core Phases</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">20+</span><div class="stat-label">Tools Covered</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">Legal</span><div class="stat-label">Admissibility Standards</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <div class="book-note">
+      <i class="fas fa-quote-left"></i> <strong>Key Excerpts from Author's Digital Forensics Reference Work</strong><br>
+      This comprehensive framework establishes best practices for maintaining forensic soundness, chain of custody, and legal admissibility throughout the digital evidence lifecycle.
+    </div>
+
+    <!-- Collection Section -->
+    <section id="collection" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>Digital Evidence Collection</h2>
+      </div>
+
+      <div class="card">
+        <h3>Principles & Best Practices</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Forensic Soundness</strong>Avoid contamination and alteration. Use write-blocking devices, validated forensic tools, and repeatable documented procedures.</div>
+          <div class="info-box"><strong>Chain of Custody</strong>Formal chronological record detailing evidence handling. Document every individual, date/time, purpose, and action taken.</div>
+          <div class="info-box"><strong>Scene Documentation</strong>Photographic/video recording of physical scene, device locations, power states, system states, and witness interviews.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Methodologies & Techniques</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Live vs. Dead Box Collection</strong>Live collection captures volatile data (RAM, processes, network connections). Dead collection involves powered-down systems. Best practice: collect live data first.</div>
+          <div class="info-box"><strong>Forensic Imaging</strong>Bit-by-bit copy using write blockers. Formats: E01, AFF, RAW. Validate with MD5/SHA-256 hashing pre- and post-imaging.</div>
+          <div class="info-box"><strong>Volatile Data Collection</strong>RAM contents, running processes, network connections, encryption keys. Tools: Volatility, DumpIt, Redline.</div>
+          <div class="info-box"><strong>Remote & Cloud Acquisition</strong>Cloud APIs, snapshots, logs. Understand architecture, jurisdictional considerations, and provider compliance.</div>
+        </div>
+        <div class="code-block">
+# Hash verification workflow
+# Compute hash of original evidence media
+md5sum /dev/sdb > evidence_original.hash
+
+# Create forensic image with write blocker
+dc3dd if=/dev/sdb of=evidence.dd hash=md5 hash=sha256 log=image.log
+
+# Verify hash matches
+md5sum evidence.dd
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Field Kit Essentials</h3>
+        <div class="tool-grid">
+          <div class="tool-item"><strong>Write Blockers</strong>Hardware/software preventing writes to evidence media</div>
+          <div class="tool-item"><strong>Storage Media</strong>External drives for forensic images</div>
+          <div class="tool-item"><strong>Evidence Labels</strong>Tamper-evident packaging and seals</div>
+          <div class="tool-item"><strong>Forensic Laptop</strong>Configured with validated tools</div>
+          <div class="tool-item"><strong>Documentation</strong>Notebooks, cameras for scene recording</div>
+          <div class="tool-item"><strong>Power/PPE</strong>Maintain device power, contamination prevention</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Storage Section -->
+    <section id="storage" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-hdd"></i></div>
+        <h2>Digital Evidence Storage</h2>
+      </div>
+
+      <div class="card">
+        <h3>Storage Media & Formats</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Write-Once Media</strong>CD/DVD, WORM drives. Immutable after writing, supports chain of custody integrity.</div>
+          <div class="info-box"><strong>Encrypted Storage</strong>AES-256 encryption, Hardware Security Modules (HSMs), FIPS 140-2 certified devices.</div>
+          <div class="info-box"><strong>Standard Image Formats</strong>E01 (EnCase with metadata/compression), AFF (open-source extensible), RAW (bit-for-bit universal).</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Security Measures</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Encryption of Stored Data</strong>AES-256, full disk encryption, secure key management separated from encrypted data.</div>
+          <div class="info-box"><strong>Role-Based Access Control</strong>Least privilege principle, multi-factor authentication, defined roles (analyst, counsel, admin).</div>
+          <div class="info-box"><strong>Audit Logging</strong>Comprehensive logs of all access, modifications, transfers. User identity, timestamps, actions.</div>
+          <div class="info-box"><strong>Off-site Backup</strong>Geographically separate backups, disaster recovery plans, periodic restoration testing.</div>
+          <div class="info-box"><strong>Physical Security</strong>Access controls, environmental controls, video surveillance, tamper-evident containers.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Data Integrity & Management</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Regular Hash Verification</strong>Scheduled integrity audits, automated verification tools, discrepancy investigation protocols.</div>
+          <div class="info-box"><strong>Chain of Custody Documentation</strong>Personnel access records, date/time stamps, handling actions, storage location tracking.</div>
+          <div class="info-box"><strong>Retention Policies</strong>Aligned with legal requirements, GDPR/HIPAA compliance, litigation holds, secure destruction procedures.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processing Section -->
+    <section id="processing" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Digital Evidence Processing</h2>
+      </div>
+
+      <div class="card">
+        <h3>Data Analysis & Examination</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>File Carving & Deleted Data Recovery</strong>Recover files from raw data fragments without file system metadata. Recover from slack space, unallocated clusters.</div>
+          <div class="info-box"><strong>Metadata & Timestamp Analysis</strong>Examine file properties (MAC times), system logs, detect timestamp manipulation, establish event chronology.</div>
+          <div class="info-box"><strong>Timeline Reconstruction & Event Correlation</strong>Aggregate timestamps from multiple sources, correlate events across devices, visualize sequence of actions.</div>
+          <div class="info-box"><strong>Keyword Searches & Filtering</strong>Targeted retrieval using Boolean operators, wildcards, proximity searches across file contents and metadata.</div>
+          <div class="info-box"><strong>Decryption & Password Cracking</strong>Brute force, dictionary attacks, rainbow tables. Document authorization and methodology thoroughly.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Malware Analysis & Reverse Engineering</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Static Analysis</strong>Disassemblers: IDA Pro, Ghidra, Radare2. Examine code without execution.</div>
+          <div class="info-box"><strong>Dynamic Analysis</strong>Sandboxed execution: Cuckoo Sandbox. Observe real-time behavior.</div>
+          <div class="info-box"><strong>Memory Forensics</strong>Volatility framework. Detect malicious processes and injected code.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-toolbox"></i></div>
+        <h2>Forensic Tools</h2>
+      </div>
+
+      <div class="card">
+        <h3>Commercial Tools</h3>
+        <div class="tool-grid">
+          <div class="tool-item"><strong>EnCase</strong>Comprehensive forensic suite with imaging, analysis, reporting. Court-validated processes.</div>
+          <div class="tool-item"><strong>FTK (Forensic Toolkit)</strong>Fast indexing, data carving, email analysis, password recovery modules.</div>
+          <div class="tool-item"><strong>Cellebrite</strong>Mobile device forensics, deleted data extraction, cloud data acquisition.</div>
+          <div class="tool-item"><strong>Magnet AXIOM</strong>Unified computer, mobile, cloud evidence collection. Automated artifact parsing.</div>
+          <div class="tool-item"><strong>F-Response</strong>Remote read-only access to physical and logical drives for network-based acquisition.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Open Source Tools</h3>
+        <div class="tool-grid">
+          <div class="tool-item"><strong>Autopsy / Sleuth Kit</strong>GUI and command-line forensic analysis, disk imaging, file system analysis, timeline generation.</div>
+          <div class="tool-item"><strong>KAPE (Kroll Artifact Parser)</strong>Triage and artifact collection, live/dead system acquisition, rapid evidence collection.</div>
+          <div class="tool-item"><strong>Volatility</strong>Memory forensics framework. Analyze RAM dumps, running processes, network connections.</div>
+          <div class="tool-item"><strong>Wireshark</strong>Network packet analysis, protocol inspection, traffic capture reconstruction.</div>
+          <div class="tool-item"><strong>Ghidra / IDA Pro</strong>Reverse engineering, malware analysis, code disassembly.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Validation: Hashing & Checksum Verification</h3>
+        <div class="code-block">
+# MD5 and SHA-256 hash verification workflow
+# 1. Compute hash of original evidence before imaging
+md5sum /dev/sdb > original.md5
+sha256sum /dev/sdb > original.sha256
+
+# 2. Create forensic image with embedded hash
+dc3dd if=/dev/sdb of=evidence.dd hash=md5 hash=sha256 log=image.log
+
+# 3. Verify post-imaging hash matches
+md5sum evidence.dd | diff - original.md5
+        </div>
+      </div>
+    </section>
+
+    <!-- Reporting & Presentation -->
+    <section id="presentation" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chalkboard-user"></i></div>
+        <h2>Reporting & Presentation</h2>
+      </div>
+
+      <div class="card">
+        <h3>Comprehensive Forensic Reports</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Case Overview</strong>Background, objectives, scope of investigation</div>
+          <div class="info-box"><strong>Methodology</strong>Tools, techniques, procedures, standards applied</div>
+          <div class="info-box"><strong>Findings</strong>Recovered data, analysis results, timelines, correlations</div>
+          <div class="info-box"><strong>Interpretations</strong>Objective explanations linking findings to investigative questions</div>
+          <div class="info-box"><strong>Limitations</strong>Constraints, incomplete data, technical challenges</div>
+          <div class="info-box"><strong>Conclusion</strong>Summary and recommended next steps</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Chain of Custody Documentation</h3>
+        <div class="phase-table">
+          <table><th>Element</th><th>Required Information</th></tr>
+          <tr><td><strong>Identification</strong></td><td>Unique identifiers, case number, exhibit tag</td></tr>
+          <tr><td><strong>Custody History</strong></td><td>Names/roles of personnel, date/time stamps</td></tr>
+          <tr><td><strong>Handling Actions</strong></td><td>Imaging, analysis, transfer, storage activities</td></tr>
+          <tr><td><strong>Location Tracking</strong></td><td>Storage or transport locations during each custody event</td></tr>
+          <tr><td><strong>Authentication</strong></td><td>Signatures or electronic authentication with audit trails</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Expert Testimony Preparation</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Review Reports</strong>Ensure thorough understanding of all evidence handling and findings</div>
+          <div class="info-box"><strong>Anticipate Cross-Examination</strong>Prepare for challenges on methodology, tool reliability, chain of custody</div>
+          <div class="info-box"><strong>Simplify Complex Concepts</strong>Use analogies, visual aids, plain language while maintaining accuracy</div>
+          <div class="info-box"><strong>Legal Standards</strong>Understand Daubert/Frye admissibility requirements for jurisdiction</div>
+          <div class="info-box"><strong>Impartiality</strong>Maintain professional objectivity and ethical standards</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete Digital Evidence Framework.</p>
+      <a href="https://www.mukeshkumarsingh.com/Digital-Evidence-Collection-Storage-Processing-and-Presentation/index.html" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fas fa-book-open"></i> Access the Full Original Framework
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Digital Forensics & Cybersecurity Expert</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
