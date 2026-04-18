@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>LLM Security Playbook | Mukesh Kumar Singh - AI Security Expert</title>
+  <meta name="description" content="Complete LLM Security Playbook covering OWASP Top 10, threat modeling, privacy-enhancing technologies, incident response, SecOps, user education, and emerging risks.">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta property="og:title" content="LLM Security Playbook: Strategies, Risks & Real-World Defenses">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/llm-security-playbook.html">
+  <meta property="og:description" content="A complete framework for securing Large Language Models across the entire lifecycle.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #2c8fbb; }
+    .hero-badge { background: rgba(44,143,187,0.2); color: #7bc5e8; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(123,197,232,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .github-btn, .original-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 500; margin-top: 0.8rem; margin-right: 0.8rem; font-size: 0.85rem; }
+    .github-btn { background: #2c3e4e; color: white; }
+    .github-btn:hover { background: #1a6d8f; }
+    .original-btn { background: #c49a6c; color: #0a1922; }
+    .original-btn:hover { background: #e8c39e; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #1a6d8f; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #1a6d8f; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #1a6d8f; font-size: 0.9rem; }
+    .info-box strong { color: #1a6d8f; display: block; margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .risk-table { overflow-x: auto; }
+    .risk-table table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .risk-table th, .risk-table td { padding: 0.6rem; text-align: left; border-bottom: 1px solid #eef2f8; }
+    .risk-table th { background: #f8fafd; color: #1a6d8f; }
+    .mitigation-list { list-style: none; padding-left: 0; }
+    .mitigation-list li { margin-bottom: 0.5rem; padding-left: 1.3rem; position: relative; font-size: 0.9rem; }
+    .mitigation-list li:before { content: "▹"; position: absolute; left: 0; color: #1a6d8f; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    .footer-buttons { margin-top: 0.8rem; }
+    .footer-buttons a { color: #cbdbe6; font-size: 0.8rem; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://www.mukeshkumarsingh.com/LLM-Security-Playbook-Strategies-Risks-Real-World-Defenses-for-Protecting-LLMs/index.html" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<div class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-shield-alt"></i> Complete Security Framework</span>
+        <h1>LLM Security Playbook:<br>Strategies, Risks & Real-World Defenses</h1>
+        <div class="hero-meta">
+          <span><i class="fas fa-calendar-alt"></i> Published 2024</span>
+          <span><i class="fas fa-tag"></i> AI Security · LLM · OWASP Top 10</span>
+          <span><i class="fas fa-clock"></i> Comprehensive Guide</span>
+        </div>
+        <p class="hero-description">A complete framework for securing Large Language Models across the entire lifecycle—from threat modeling and OWASP Top 10 to incident response, SecOps, and emerging risks.</p>
+        <div>
+          <a href="https://github.com/MukeshKumarSingh1/LLM-Security-Playbook" target="_blank" class="github-btn"><i class="fab fa-github"></i> View on GitHub</a>
+          <a href="https://www.mukeshkumarsingh.com/LLM-Security-Playbook-Strategies-Risks-Real-World-Defenses-for-Protecting-LLMs/index.html" target="_blank" class="original-btn"><i class="fas fa-book-open"></i> View Original Full Framework</a>
+        </div>
+      </div>
+      <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem;">
+        <div><span style="font-size:1.5rem; font-weight:700; color:#7bc5e8;">8</span><div style="font-size:0.75rem;">Core Sections</div></div>
+        <div style="margin-top:0.8rem;"><span style="font-size:1.5rem; font-weight:700; color:#7bc5e8;">10</span><div style="font-size:0.75rem;">OWASP Risks</div></div>
+        <div style="margin-top:0.8rem;"><span style="font-size:1.5rem; font-weight:700; color:#7bc5e8;">50+</span><div style="font-size:0.75rem;">Strategies</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Section 1: Introduction to LLM Security -->
+    <section id="introduction" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-info-circle"></i></div>
+        <h2>Introduction to LLM Security</h2>
+      </div>
+      <div class="card">
+        <p><strong>Understanding Large Language Models (LLMs)</strong> — LLMs are advanced deep learning models trained on vast datasets to understand, generate, and manipulate human language. Popular examples include GPT, BERT, Claude, and LLaMA. These models power chatbots, code generation, translation, medical diagnosis assistance, and legal document analysis.</p>
+        <p style="margin-top: 0.8rem;"><strong>Unique Security Challenges:</strong> LLMs introduce unprecedented vulnerabilities: prompt injection attacks, insecure output handling, training data poisoning, model theft, excessive autonomy, and sensitive information leakage. Security must be a core consideration during LLM development, deployment, and monitoring.</p>
+      </div>
+    </section>
+
+    <!-- Section 2: OWASP Top 10 Risks for LLM Applications -->
+    <section id="owasp" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-list"></i></div>
+        <h2>OWASP Top 10 Risks for LLM Applications</h2>
+      </div>
+      <div class="card risk-table">
+        <p>The OWASP Top 10 for LLM Applications (2025 update) identifies the most critical vulnerabilities:</p>
+        <table>
+          <thead><tr><th>Risk ID</th><th>Description</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td><strong>LLM01</strong></td><td>Prompt Injection</td><td>Manipulating model inputs to induce malicious behavior</td></tr>
+            <tr><td><strong>LLM02</strong></td><td>Sensitive Information Disclosure</td><td>Leakage of confidential data through model outputs</td></tr>
+            <tr><td><strong>LLM03</strong></td><td>Supply Chain Vulnerabilities</td><td>Compromised third-party components or datasets</td></tr>
+            <tr><td><strong>LLM04</strong></td><td>Model Denial of Service</td><td>Overwhelming model resources causing downtime</td></tr>
+            <tr><td><strong>LLM05</strong></td><td>Training Data Poisoning</td><td>Corrupting training data to inject backdoors</td></tr>
+            <tr><td><strong>LLM06</strong></td><td>Insecure Output Handling</td><td>Failure to validate generated outputs</td></tr>
+            <tr><td><strong>LLM07</strong></td><td>Insecure Plugin Design</td><td>Vulnerabilities in LLM extensions</td></tr>
+            <tr><td><strong>LLM08</strong></td><td>Excessive Agency</td><td>Unchecked autonomous capabilities</td></tr>
+            <tr><td><strong>LLM09</strong></td><td>Overreliance</td><td>Blind trust in LLM outputs without validation</td></tr>
+            <tr><td><strong>LLM10</strong></td><td>Model Theft</td><td>Unauthorized extraction of model weights</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:0.8rem;"><strong>Best Practices:</strong> Robust input validation, output filtering, secure training pipelines, access controls, model encryption, rate limiting, audit logging, human-in-the-loop oversight, regular security assessments, and transparency.</p>
+      </div>
+    </section>
+
+    <!-- Section 3: Threat Modeling & Risk Assessment Frameworks -->
+    <section id="threat-modeling" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Threat Modeling & Risk Assessment Frameworks</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>MITRE ATLAS</strong>Adversarial Threat Landscape for AI Systems. Knowledge base of tactics and techniques specific to ML systems.</div>
+          <div class="info-box"><strong>LLM Threat Modeling</strong>Focus on prompt injection, data poisoning, supply chain attacks, and model extraction threats.</div>
+          <div class="info-box"><strong>Risk Assessment Process</strong>Identify assets (models, data, APIs), threats, vulnerabilities, impact likelihood, and risk treatment.</div>
+          <div class="info-box"><strong>Model Cards & Transparency</strong>Document model capabilities, limitations, bias assessments, and security controls.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Privacy-Enhancing Technologies & Regulatory Compliance -->
+    <section id="privacy" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-user-secret"></i></div>
+        <h2>Privacy-Enhancing Technologies & Compliance</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Differential Privacy</strong>Adds calibrated noise to training data, preventing extraction of individual training samples.</div>
+          <div class="info-box"><strong>Federated Learning</strong>Trains models across decentralized data sources without raw data leaving local devices.</div>
+          <div class="info-box"><strong>Homomorphic Encryption</strong>Enables computation on encrypted data without decryption.</div>
+          <div class="info-box"><strong>Regulatory Compliance</strong>GDPR (right to explanation), EU AI Act (risk-based classification), CCPA (data deletion).</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Incident Response & Forensics -->
+    <section id="incident-response" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-bug"></i></div>
+        <h2>Incident Response & Forensics</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Incident Types</strong>Prompt injection attacks, data leakage, model inversion, poisoning trigger activation, model theft.</div>
+          <div class="info-box"><strong>Detection & Alerting</strong>Monitor output logs for leakage patterns, anomalous query volumes, trigger phrase detection.</div>
+          <div class="info-box"><strong>Forensic Investigation</strong>Preserve prompt logs, output history, model version snapshots, API call metadata.</div>
+          <div class="info-box"><strong>Containment & Recovery</strong>Isolate compromised model endpoints, rollback to known-good versions, revoke exposed API keys.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Operational Security & Continuous Monitoring -->
+    <section id="secops" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-eye"></i></div>
+        <h2>Operational Security & Continuous Monitoring</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Real-Time Monitoring</strong>Track prompt patterns, output anomalies, token usage spikes, API error rates.</div>
+          <div class="info-box"><strong>Automated Alerting</strong>Configure alerts for prompt injection, attempted data extraction, policy violations.</div>
+          <div class="info-box"><strong>Drift Detection</strong>Monitor model behavior changes—accuracy, bias metrics, refusal rates, response distributions.</div>
+          <div class="info-box"><strong>Security Controls</strong>Rate limiting, IP whitelisting, API key rotation, input/output filtering.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: User Education & Developer Training -->
+    <section id="education" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chalkboard-user"></i></div>
+        <h2>User Education & Developer Training</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Developer Training</strong>Secure LLM development lifecycle, OWASP Top 10 for LLMs, adversarial testing methodologies.</div>
+          <div class="info-box"><strong>User Education</strong>Understanding LLM limitations, avoiding PII in prompts, recognizing hallucinations.</div>
+          <div class="info-box"><strong>Red Teaming</strong>Simulate prompt injection attacks, conduct tabletop exercises, build internal LLM security testing.</div>
+          <div class="info-box"><strong>Security Champions</strong>Designate LLM security champions to promote best practices and conduct peer reviews.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Emerging Risks & Future Trends -->
+    <section id="emerging" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Emerging Risks & Future Trends</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Multimodal LLM Attacks</strong>Image-based prompt injection, audio-based manipulation, cross-modal jailbreaks.</div>
+          <div class="info-box"><strong>Agentic AI Risks</strong>Autonomous LLM agents with tool access—command injection, privilege escalation.</div>
+          <div class="info-box"><strong>LLM-as-a-Judge Attacks</strong>Manipulating models used for evaluation, content moderation, or security decisions.</div>
+          <div class="info-box"><strong>Long-Term Memory Poisoning</strong>Persistent manipulation across user sessions via stored context or embeddings.</div>
+          <div class="info-box"><strong>Model Watermarking</strong>Techniques to detect model theft and unauthorized use.</div>
+          <div class="info-box"><strong>Regulatory Evolution</strong>EU AI Act enforcement, ISO/IEC 42001 standards, liability frameworks.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Original Framework Link -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete LLM Security Playbook.</p>
+      <a href="https://www.mukeshkumarsingh.com/LLM-Security-Playbook-Strategies-Risks-Real-World-Defenses-for-Protecting-LLMs/index.html" target="_blank" class="original-btn" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem;">
+        <i class="fas fa-book-open"></i> Access the Full Original Framework
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — LLM Security Playbook</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+  <div class="footer-buttons">
+    <a href="https://www.mukeshkumarsingh.com/LLM-Security-Playbook-Strategies-Risks-Real-World-Defenses-for-Protecting-LLMs/index.html" target="_blank">View Complete Original Framework →</a>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
