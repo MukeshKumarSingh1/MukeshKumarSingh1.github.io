@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>OSINT Framework | Mukesh Kumar Singh - Open Source Intelligence</title>
+  <meta name="description" content="OSINT Framework for threat detection, situational awareness, and adversary tracking. Based on a documented real-life case where OSINT enabled proactive defense against coordinated targeting.">
+  <meta name="keywords" content="OSINT, open source intelligence, threat detection, adversary tracking, social media monitoring, dark web monitoring, OSINT tools, theHarvester, Maltego, Shodan, Recon-ng, SpiderFoot">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="OSINT Framework - Open Source Intelligence for Threat Detection">
+  <meta property="og:type" content="project">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/osint-framework.html">
+  <meta property="og:description" content="A modular OSINT framework for real-time threat detection, adversary tracking, and digital risk mitigation. Includes tools, methodologies, automation scripts, and legal considerations.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-osint.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OSINT Framework">
+  <meta name="twitter:description" content="Modular OSINT framework for threat detection, adversary tracking, and digital risk mitigation.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/osint-framework.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #6a4c9c; }
+    .hero-badge { background: rgba(106,76,156,0.2); color: #c4a5ff; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(196,165,255,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #c4a5ff; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .github-link { display: inline-flex; align-items: center; gap: 0.5rem; background: #2c3e4e; color: white; padding: 0.5rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 500; margin-top: 0.8rem; font-size: 0.85rem; transition: background 0.2s; }
+    .github-link:hover { background: #6a4c9c; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #6a4c9c; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #6a4c9c; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #6a4c9c; font-size: 0.85rem; }
+    .info-box strong { color: #6a4c9c; display: block; margin-bottom: 0.3rem; font-size: 0.9rem; }
+    .case-note { background: #f5f0ff; border-left: 4px solid #6a4c9c; padding: 0.8rem; border-radius: 12px; margin-bottom: 0.8rem; font-size: 0.85rem; font-style: italic; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tool-item { background: #f8fafd; padding: 0.7rem; border-radius: 12px; border-left: 3px solid #6a4c9c; font-size: 0.85rem; }
+    .tool-item strong { display: block; color: #6a4c9c; margin-bottom: 0.2rem; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.5rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .code-block { background: #1e2a36; color: #e2e8f0; padding: 0.8rem; border-radius: 10px; font-family: monospace; font-size: 0.7rem; overflow-x: auto; margin: 0.8rem 0; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .tool-grid { grid-template-columns: 1fr; }
+      .two-column { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://github.com/MukeshKumarSingh1/OSINT-Framework" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-search"></i> Real-World OSINT Implementation</span>
+        <h1>OSINT Framework</h1>
+        <div class="hero-meta">
+          <span><i class="fab fa-github"></i> GitHub Repository</span>
+          <span><i class="fas fa-calendar-alt"></i> Active Development</span>
+          <span><i class="fas fa-tag"></i> OSINT · Threat Detection · Situational Awareness</span>
+        </div>
+        <p class="hero-description">A modular OSINT framework for real-time threat detection, adversary tracking, and digital risk mitigation. Based on a documented real-life case where OSINT enabled proactive defense against coordinated targeting.</p>
+        <a href="https://github.com/MukeshKumarSingh1/OSINT-Framework" class="github-link" target="_blank">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">8</span><div class="stat-label">Data Categories</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">12+</span><div class="stat-label">OSINT Tools</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">7</span><div class="stat-label">Workflow Phases</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- The Real-Life Case -->
+    <section id="case" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-file-alt"></i></div>
+        <h2>The Real-Life Case</h2>
+      </div>
+      <div class="card">
+        <div class="case-note">
+          <i class="fas fa-quote-left"></i> This framework is based on a documented real-life case in which a coordinated group of corrupt actors and criminal affiliates exploited their influence, networks, and, in some instances, government-aligned resources to systematically isolate, surveil, manipulate, and ultimately target an innocent individual abroad.
+        </div>
+        <p>The subject's primary line of defense was the proactive and strategic use of <strong>Open Source Intelligence (OSINT)</strong>. By continuously collecting, verifying, and analyzing publicly available data, the individual was able to:</p>
+        <ul style="margin: 0.8rem 0 0 1.2rem;">
+          <li>Identify threats in real time</li>
+          <li>Adapt defensive strategies dynamically</li>
+          <li>Mitigate harm through informed decision-making</li>
+          <li>Document adversary activities for legal purposes</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Framework Overview -->
+    <section id="framework" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-layer-group"></i></div>
+        <h2>Framework Overview</h2>
+      </div>
+      <div class="card">
+        <p>This framework outlines the OSINT tools, methodologies, and operational workflows employed during the incident. It is designed to be <strong>modular</strong> and may be expanded based on operational requirements, time constraints, or evolving threat landscapes.</p>
+        
+        <div class="two-column" style="margin-top: 0.8rem;">
+          <div class="info-box"><strong>📊 Technical Aspects</strong>Data sources, automation scripts, API integrations, real-time monitoring</div>
+          <div class="info-box"><strong>⚖️ Legal Considerations</strong>Public information laws, privacy statutes, evidentiary standards</div>
+          <div class="info-box"><strong>🛡️ Security Applications</strong>Threat detection, situational awareness, adversary tracking</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OSINT Categories & Data Sources -->
+    <section id="sources" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>OSINT Categories & Data Sources</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>🌐 Social Media Intelligence</strong>Twitter/X, Facebook, LinkedIn, Instagram, Reddit, Telegram</div>
+          <div class="info-box"><strong>🔍 Search Engine OSINT</strong>Google (dorks), Bing, Shodan, Censys</div>
+          <div class="info-box"><strong>🌍 Geolocation Intelligence</strong>EXIF data, Google Maps/Earth, Street View</div>
+          <div class="info-box"><strong>🖥️ Technical OSINT</strong>DNS records, subdomain enumeration, SSL certificates</div>
+          <div class="info-box"><strong>📁 Document & Breach OSINT</strong>Dehashed, HaveIBeenPwned, public repositories</div>
+          <div class="info-box"><strong>💼 Corporate & Financial OSINT</strong>SEC filings, business registries, Crunchbase</div>
+          <div class="info-box"><strong>🗣️ Forum & Dark Web OSINT</strong>Paste sites, dark web monitoring via Tor</div>
+          <div class="info-box"><strong>📰 News & Media OSINT</strong>Google News, RSS feeds, media monitoring</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OSINT Tool Stack -->
+    <section id="tools" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-toolbox"></i></div>
+        <h2>OSINT Tool Stack</h2>
+      </div>
+      <div class="card">
+        <div class="tool-grid">
+          <div class="tool-item"><strong>theHarvester</strong>Email, subdomain, employee enumeration</div>
+          <div class="tool-item"><strong>Maltego</strong>Graphical link analysis and data mining</div>
+          <div class="tool-item"><strong>Shodan / Censys</strong>Internet-connected device discovery</div>
+          <div class="tool-item"><strong>Recon-ng</strong>Web reconnaissance framework</div>
+          <div class="tool-item"><strong>SpiderFoot</strong>Automated OSINT collection</div>
+          <div class="tool-item"><strong>Sherlock</strong>Username enumeration across networks</div>
+          <div class="tool-item"><strong>PhoneInfoga</strong>Phone number intelligence</div>
+          <div class="tool-item"><strong>ExifTool</strong>Metadata extraction from files</div>
+          <div class="tool-item"><strong>Google Dorks</strong>Advanced search operators</div>
+          <div class="tool-item"><strong>Custom Automation</strong>Python scripts, API integrations</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Operational Workflow -->
+    <section id="workflow" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-diagram-project"></i></div>
+        <h2>Operational Workflow</h2>
+      </div>
+      <div class="card phase-table">
+        <table><th>Phase</th><th>Activities</th><th>Outputs</th></tr>
+        <tr><td><strong>1. Requirements</strong></td><td>Define needs, identify targets, set priorities</td><td>Collection plan, target profiles</td></tr>
+        <tr><td><strong>2. Collection</strong></td><td>Automated scraping, API queries, manual searches</td><td>Raw data, screenshots</td></tr>
+        <tr><td><strong>3. Processing</strong></td><td>Normalization, deduplication, extraction</td><td>Structured datasets</td></tr>
+        <tr><td><strong>4. Analysis</strong></td><td>Link analysis, pattern recognition, timeline</td><td>Findings, threat assessments</td></tr>
+        <tr><td><strong>5. Verification</strong></td><td>Cross-reference, validate authenticity</td><td>Verified intelligence</td></tr>
+        <tr><td><strong>6. Dissemination</strong></td><td>Alert generation, reporting, sharing</td><td>Alerts, reports, evidence</td></tr>
+        <tr><td><strong>7. Feedback</strong></td><td>Assess impact, refine collection</td><td>Process improvements</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <!-- Automation & Monitoring -->
+    <section id="automation" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-robot"></i></div>
+        <h2>Automation & Real-Time Monitoring</h2>
+      </div>
+      <div class="card">
+        <div class="code-block">
+# Example OSINT automation architecture
+# 1. Credential/breach monitoring
+python3 dehashed_scraper.py --target "example.com" --output breaches.json
+
+# 2. Social media monitoring
+python3 social_monitor.py --keywords "target_username" --platforms twitter,reddit
+
+# 3. Domain/DNS monitoring
+python3 subdomain_enum.py --domain example.com --output subdomains.txt
+
+# 4. Dark web monitoring (Tor)
+python3 darkweb_monitor.py --keywords-file keywords.txt
+
+# 5. Alerting integration
+python3 send_alert.py --severity high --webhook discord/slack
+        </div>
+        
+        <div class="two-column" style="margin-top: 0.8rem;">
+          <div class="info-box"><strong>🔄 API Integrations</strong>Twitter, Reddit, Shodan, HaveIBeenPwned, VirusTotal</div>
+          <div class="info-box"><strong>📡 Real-Time Alerting</strong>Keyword monitoring, change detection, credential leak alerts</div>
+          <div class="info-box"><strong>🤖 Automation Scripts</strong>Python collectors, cron jobs, SIEM ingestion</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Legal & Compliance -->
+    <section id="legal" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-gavel"></i></div>
+        <h2>Legal & Compliance Framework</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>⚖️ Public Information Doctrine</strong>OSINT only collects publicly available data. No unauthorized access.</div>
+          <div class="info-box"><strong>🌍 Jurisdictional Compliance</strong>Respects local and international privacy laws (GDPR, CCPA).</div>
+          <div class="info-box"><strong>📋 Documentation & Chain of Custody</strong>Screenshots, timestamps, source URLs preserved.</div>
+          <div class="info-box"><strong>🛡️ Ethical OSINT Principles</strong>No harassment, no false attribution. Intelligence used defensively.</div>
+        </div>
+        <div class="case-note" style="margin-top: 0.8rem;">
+          <i class="fas fa-info-circle"></i> This framework operates strictly within legal boundaries. All intelligence is derived from publicly accessible sources using standard tools and methods.
+        </div>
+      </div>
+    </section>
+
+    <!-- Repository Structure -->
+    <section id="repository" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fab fa-github-alt"></i></div>
+        <h2>Repository Structure</h2>
+      </div>
+      <div class="card">
+        <div style="background: #f8fafd; padding: 0.8rem; border-radius: 12px; font-family: monospace; font-size: 0.75rem;">
+          <i class="fas fa-folder-open"></i> OSINT-Framework/<br>
+          ├── <i class="fas fa-folder"></i> tools/ &nbsp;&nbsp;# Tool configurations, installation guides<br>
+          ├── <i class="fas fa-folder"></i> scripts/ &nbsp;&nbsp;# Python automation scripts, scrapers<br>
+          ├── <i class="fas fa-folder"></i> workflows/ &nbsp;&nbsp;# Operational procedures, playbooks<br>
+          ├── <i class="fas fa-folder"></i> data-sources/ &nbsp;&nbsp;# Curated OSINT sources by category<br>
+          ├── <i class="fas fa-folder"></i> legal/ &nbsp;&nbsp;# Legal considerations, ethical guidelines<br>
+          ├── <i class="fas fa-folder"></i> case-study/ &nbsp;&nbsp;# Documented real-life case<br>
+          └── <i class="fas fa-file-alt"></i> README.md &nbsp;&nbsp;# Framework overview
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+          <a href="https://github.com/MukeshKumarSingh1/OSINT-Framework" class="github-link" target="_blank" style="background: #6a4c9c;">
+            <i class="fab fa-github"></i> Explore the Repository
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete OSINT Framework.</p>
+      <a href="https://github.com/MukeshKumarSingh1/OSINT-Framework" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fab fa-github"></i> Access the Full Repository
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — OSINT Framework (Open Source)</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
