@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Cyber Threat Intelligence (CTI) Framework | Mukesh Kumar Singh - Cyber Threat Intelligence</title>
+  <meta name="description" content="Comprehensive Cyber Threat Intelligence Framework covering collection sources (OSINT, HUMINT, SIGINT), analysis methodologies (MITRE ATT&CK, Cyber Kill Chain, Diamond Model), dissemination (TLP, STIX/TAXII), and threat-informed defense strategies.">
+  <meta name="keywords" content="Cyber Threat Intelligence, CTI Framework, MITRE ATT&CK, Cyber Kill Chain, Diamond Model, TLP, STIX, TAXII, Threat Intelligence, OSINT, HUMINT, SIGINT">
+  <meta name="author" content="Mukesh Kumar Singh">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Cyber Threat Intelligence (CTI) Framework - Complete Threat Intelligence Reference">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.mukeshkumarsingh.com/cti-framework.html">
+  <meta property="og:description" content="A structured framework for managing, analyzing, and acting on cyber threat intelligence. Covers collection sources, MITRE ATT&CK, Diamond Model, TLP protocols, and threat hunting integration.">
+  <meta property="og:image" content="https://www.mukeshkumarsingh.com/assets/og-cti.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cyber Threat Intelligence (CTI) Framework">
+  <meta name="twitter:description" content="Complete CTI framework covering collection sources, MITRE ATT&CK, TLP protocols, and threat-informed defense.">
+  <link rel="canonical" href="https://www.mukeshkumarsingh.com/cti-framework.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fafcff; color: #1a2a3a; line-height: 1.6; }
+    h1, h2, h3 { font-family: 'Space Grotesk', monospace; font-weight: 500; letter-spacing: -0.02em; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .site-header { background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; flex-wrap: wrap; gap: 1rem; }
+    .logo a { font-size: 1.5rem; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #0f2b3d, #1b5a7a); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2c3e4e; transition: color 0.2s; font-size: 0.9rem; }
+    .nav-links a:hover { color: #1a6d8f; }
+    .original-link { background: #1a6d8f; color: white !important; padding: 0.3rem 0.8rem; border-radius: 40px; font-size: 0.85rem; }
+    .original-link:hover { background: #0f4a62; }
+    .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #1a2a3a; }
+    .project-hero { background: linear-gradient(135deg, #0a1922 0%, #0f2a35 100%); color: white; padding: 3rem 0 2.5rem; border-bottom: 4px solid #5c9e5e; }
+    .hero-badge { background: rgba(92,158,94,0.2); color: #a8e6a8; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; display: inline-block; margin-bottom: 1rem; border: 1px solid rgba(168,230,168,0.3); }
+    .project-hero h1 { font-size: 2.2rem; margin-bottom: 0.8rem; }
+    .hero-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; color: #a0c4db; font-size: 0.85rem; }
+    .hero-description { font-size: 1rem; color: #cbdde9; max-width: 700px; }
+    .hero-stats { flex: 1; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 1rem; }
+    .stat-number { font-size: 1.5rem; font-weight: 700; color: #a8e6a8; }
+    .stat-label { font-size: 0.75rem; color: #a0c4db; }
+    .main-content { padding: 2rem 0 3rem; }
+    .content-section { margin-bottom: 2rem; scroll-margin-top: 80px; }
+    .section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 2px solid #e2e8f0; }
+    .section-icon { width: 38px; height: 38px; background: #eef3fc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #5c9e5e; font-size: 1.1rem; }
+    .section-header h2 { font-size: 1.4rem; color: #0a1922; }
+    .card { background: white; border-radius: 18px; padding: 1.3rem; margin-bottom: 1rem; border: 1px solid #eef2f8; }
+    .card h3 { font-size: 1.1rem; margin: 0.8rem 0 0.5rem; color: #5c9e5e; }
+    .two-column { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+    .info-box { background: #f8fafd; padding: 0.8rem; border-radius: 12px; border-left: 3px solid #5c9e5e; font-size: 0.9rem; }
+    .info-box strong { color: #5c9e5e; display: block; margin-bottom: 0.3rem; font-size: 0.95rem; }
+    .intel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.6rem; }
+    .intel-type { background: #f8fafd; padding: 0.6rem; border-radius: 10px; font-size: 0.85rem; }
+    .intel-type h4 { color: #5c9e5e; margin-bottom: 0.2rem; font-size: 0.9rem; }
+    .phase-table { overflow-x: auto; }
+    .phase-table table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+    .phase-table th, .phase-table td { padding: 0.5rem; text-align: left; border: 1px solid #e2e8f0; vertical-align: top; }
+    .phase-table th { background: #f1f5f9; font-weight: 600; }
+    .tlp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tlp-level { padding: 0.6rem; border-radius: 10px; text-align: center; font-weight: 600; font-size: 0.8rem; }
+    .tlp-red { background: #fee; color: #c00; border-left: 3px solid #c00; }
+    .tlp-amber { background: #fff3e0; color: #e67e22; border-left: 3px solid #e67e22; }
+    .tlp-green { background: #e8f5e9; color: #2e7d32; border-left: 3px solid #2e7d32; }
+    .tlp-white { background: #f5f5f5; color: #555; border-left: 3px solid #555; }
+    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .tool-item { background: #f8fafd; padding: 0.7rem; border-radius: 12px; border-left: 3px solid #5c9e5e; font-size: 0.85rem; }
+    .tool-item strong { display: block; color: #5c9e5e; margin-bottom: 0.2rem; }
+    .site-footer { background: #0f1a22; color: #cbdbe6; padding: 1.5rem 0; text-align: center; }
+    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.8rem; }
+    .social-links a { color: #cbdbe6; margin-left: 0.8rem; font-size: 1.1rem; transition: color 0.2s; }
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      .project-hero h1 { font-size: 1.6rem; }
+      .navbar { flex-direction: column; text-align: center; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding: 1rem 0; }
+      .nav-links.show { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .section-header h2 { font-size: 1.2rem; }
+      .intel-grid { grid-template-columns: 1fr 1fr; }
+      .tlp-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><a href="index.html">Mukesh Kumar Singh</a></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#perspectives">Perspectives</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#contact">Connect</a></li>
+        <li><a href="https://www.mukeshkumarsingh.com/Cyber-Threat-Intelligence-CTI-Framework/index.html" target="_blank" class="original-link">📖 Full Framework</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<section class="project-hero">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
+      <div style="flex: 2;">
+        <span class="hero-badge"><i class="fas fa-shield-alt"></i> Strategic Intelligence Framework</span>
+        <h1>Cyber Threat Intelligence (CTI) Framework</h1>
+        <div class="hero-meta">
+          <span><i class="fas fa-calendar-alt"></i> Comprehensive Reference</span>
+          <span><i class="fas fa-tag"></i> CTI · MITRE ATT&CK · Threat Intelligence</span>
+        </div>
+        <p class="hero-description">A well-organized CTI Framework for managing, analyzing, and acting on cyber threat intelligence in a systematic and effective manner. From collection and analysis to decision-making and incident response.</p>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-number">7+</span><div class="stat-label">Intel Types</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">4</span><div class="stat-label">Analysis Frameworks</div></div>
+        <div style="margin-top:0.8rem;"><span class="stat-number">4</span><div class="stat-label">TLP Levels</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="main-content">
+  <div class="container">
+
+    <!-- Definition -->
+    <section id="definition" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-info-circle"></i></div>
+        <h2>What is Cyber Threat Intelligence?</h2>
+      </div>
+      <div class="card">
+        <p><strong>Cyber Threat Intelligence (CTI)</strong> is evidence-based knowledge about existing or emerging cyber threats, including context, mechanisms, indicators, and actionable advice. A well-organized CTI Framework provides a structured approach to intelligence management—from collection and analysis to decision-making and incident response.</p>
+        <div class="two-column" style="margin-top: 0.8rem;">
+          <div class="info-box"><strong>Strategic CTI</strong>High-level intelligence for executives. Focuses on business risks and long-term trends.</div>
+          <div class="info-box"><strong>Tactical CTI</strong>Technical intelligence for security operations. Includes TTPs, IOCs, and detection rules.</div>
+          <div class="info-box"><strong>Operational CTI</strong>Intelligence about specific incoming attacks. Campaign tracking, adversary profiles.</div>
+          <div class="info-box"><strong>Technical CTI</strong>Machine-readable indicators: IP addresses, domains, hashes, YARA/Sigma rules.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intelligence Sources -->
+    <section id="sources" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-database"></i></div>
+        <h2>Threat Intelligence Collection & Sources</h2>
+      </div>
+      <div class="card">
+        <div class="intel-grid">
+          <div class="intel-type"><h4>HUMINT</h4>Human Intelligence</div>
+          <div class="intel-type"><h4>SIGINT</h4>Signals Intelligence</div>
+          <div class="intel-type"><h4>OSINT</h4>Open Source Intelligence</div>
+          <div class="intel-type"><h4>IMINT</h4>Imagery Intelligence</div>
+          <div class="intel-type"><h4>MASINT</h4>Measurement & Signature Intel</div>
+          <div class="intel-type"><h4>GEOINT</h4>Geospatial Intelligence</div>
+          <div class="intel-type"><h4>FININT</h4>Financial Intelligence</div>
+        </div>
+        <h3>Threat Feeds & Databases</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>Commercial Feeds</strong>AlienVault OTX, VirusTotal, Abuse.ch, CrowdStrike, Recorded Future</div>
+          <div class="info-box"><strong>Dark Web Monitoring</strong>Detect mentions of organization, credentials, planned attacks</div>
+          <div class="info-box"><strong>Social Media & Community</strong>Crowdsourced threat reporting, security researcher disclosures</div>
+          <div class="info-box"><strong>ISACs & Sharing Groups</strong>Industry-specific intelligence sharing (FS-ISAC, MS-ISAC)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frameworks & Methodologies -->
+    <section id="frameworks" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-project-diagram"></i></div>
+        <h2>Threat Intelligence Frameworks</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>MITRE ATT&CK®</strong>Tactics, Techniques, and Sub-techniques. Maps adversary behaviors to detection and mitigation.</div>
+          <div class="info-box"><strong>Cyber Kill Chain</strong>Reconnaissance → Weaponization → Delivery → Exploitation → Installation → C2 → Actions</div>
+          <div class="info-box"><strong>Diamond Model</strong>Relationships between Adversary, Infrastructure, Capability, and Victim.</div>
+          <div class="info-box"><strong>Pyramid of Pain</strong>Disrupt adversaries by targeting higher-level TTPs rather than low-level IOCs.</div>
+        </div>
+        <div class="phase-table" style="margin-top: 0.8rem;">
+          <h3>MITRE ATT&CK Tactics (Enterprise)</h3>
+          <table><th>Tactic</th><th>Description</th><th>Key Techniques</th></tr>
+          <tr><td>Reconnaissance</td><td>Gathering information</td><td>Active Scanning, OSINT</td></tr>
+          <tr><td>Resource Development</td><td>Establishing resources</td><td>Infrastructure, Accounts</td></tr>
+          <tr><td>Initial Access</td><td>Getting into environment</td><td>Phishing, Exploit Public Apps</td></tr>
+          <tr><td>Execution</td><td>Running malicious code</td><td>PowerShell, Scheduled Tasks</td></tr>
+          <tr><td>Persistence</td><td>Maintaining foothold</td><td>Registry Run Keys</td></tr>
+          <tr><td>Privilege Escalation</td><td>Gaining higher permissions</td><td>Bypass UAC</td></tr>
+          <tr><td>Defense Evasion</td><td>Avoiding detection</td><td>Obfuscation</td></tr>
+          <tr><td>Credential Access</td><td>Stealing credentials</td><td>LSASS Memory</td></tr>
+          <tr><td>Discovery</td><td>Learning environment</td><td>Network Scanning</td></tr>
+          <tr><td>Lateral Movement</td><td>Moving through environment</td><td>RDP, SMB</td></tr>
+          <tr><td>Collection</td><td>Gathering target data</td><td>Data Staging</td></tr>
+          <tr><td>Command & Control</td><td>Communicating with systems</td><td>DGA, Encrypted Channels</td></tr>
+          <tr><td>Exfiltration</td><td>Stealing data</td><td>Data Transfer</td></tr>
+          <tr><td>Impact</td><td>Manipulating or destroying</td><td>Data Encryption</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Analysis -->
+    <section id="analysis" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-chart-line"></i></div>
+        <h2>Data Analysis & Threat Correlation</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Indicators of Compromise (IOCs)</strong>File hashes, IPs, domains, URLs. Lifecycle: discovery → validation → use → enrichment → deprecation.</div>
+          <div class="info-box"><strong>Tactics, Techniques, Procedures (TTPs)</strong>Map adversary behaviors to MITRE ATT&CK. Identify patterns and predict future behaviors.</div>
+          <div class="info-box"><strong>Analysis of Competing Hypotheses (ACH)</strong>Investigate multiple hypotheses, weigh evidence, refine conclusions.</div>
+          <div class="info-box"><strong>Anomaly Detection</strong>SIEM tools, EDR systems, behavioral analytics to uncover hidden threats.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dissemination & Communication -->
+    <section id="dissemination" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-share-alt"></i></div>
+        <h2>Threat Intelligence Dissemination</h2>
+      </div>
+      <div class="card">
+        <h3>Traffic Light Protocol (TLP)</h3>
+        <div class="tlp-grid">
+          <div class="tlp-level tlp-red"><strong>TLP:RED</strong><br>Restricted to specific internal teams</div>
+          <div class="tlp-level tlp-amber"><strong>TLP:AMBER</strong><br>Limited sharing with trusted partners</div>
+          <div class="tlp-level tlp-green"><strong>TLP:GREEN</strong><br>Limited external sharing within community</div>
+          <div class="tlp-level tlp-white"><strong>TLP:WHITE</strong><br>Publicly releasable</div>
+        </div>
+        <h3>Standardized Formats</h3>
+        <div class="two-column">
+          <div class="info-box"><strong>STIX</strong>Structured Threat Information eXpression. JSON-based, machine-readable.</div>
+          <div class="info-box"><strong>TAXII</strong>Trusted Automated eXchange of Intelligence Information. Protocol for exchanging STIX data.</div>
+          <div class="info-box"><strong>MISP</strong>Open-source threat intelligence platform. Sharing communities, correlation.</div>
+          <div class="info-box"><strong>OpenCTI</strong>Platform for managing, storing, and sharing CTI data. Integrates with MITRE ATT&CK.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Threat Hunting & IR -->
+    <section id="hunting" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-paw"></i></div>
+        <h2>Threat Hunting & Incident Response</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Threat Hunting Environment</strong>TIPs, SIEM, SOAR. Hypothesis-driven hunting methodology.</div>
+          <div class="info-box"><strong>Red Teaming & Purple Teaming</strong>Simulated attacks using Cobalt Strike, Atomic Red Team.</div>
+          <div class="info-box"><strong>Threat-Informed Defense</strong>Continuously improve defenses based on intelligence.</div>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-item"><strong>Threat Intelligence Platforms</strong>MISP, OpenCTI, ThreatConnect, Anomali</div>
+          <div class="tool-item"><strong>SIEM Integration</strong>Splunk ES, Sentinel, QRadar, ELK Stack</div>
+          <div class="tool-item"><strong>Adversary Emulation</strong>Atomic Red Team, Caldera, Strata Red Team</div>
+          <div class="tool-item"><strong>Threat Hunting Tools</strong>Velociraptor, osquery, KAPE, Hayabusa</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Continuous Improvement -->
+    <section id="improvement" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-sync-alt"></i></div>
+        <h2>Continuous Improvement & Feedback Loop</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Measuring Effectiveness</strong>KPIs: Time to detect, response effectiveness, intelligence quality.</div>
+          <div class="info-box"><strong>Refining Processes</strong>Incorporate feedback from IR, threat hunting, and analysis.</div>
+          <div class="info-box"><strong>Adapting to New Threats</strong>Integrate new TTPs, IOCs, and indicators continuously.</div>
+        </div>
+        <div class="phase-table">
+          <h3>CTI Lifecycle</h3>
+          <table><th>Phase</th><th>Activities</th></tr>
+          <tr><td>1. Planning & Direction</td><td>Define intelligence requirements, prioritize threats</td></tr>
+          <tr><td>2. Collection</td><td>Gather data from OSINT, HUMINT, SIGINT, feeds, dark web</td></tr>
+          <tr><td>3. Processing</td><td>Convert raw data into usable format, normalize, enrich</td></tr>
+          <tr><td>4. Analysis</td><td>Interpret data, identify patterns, develop conclusions</td></tr>
+          <tr><td>5. Dissemination</td><td>Share intelligence with stakeholders (TLP classification)</td></tr>
+          <tr><td>6. Feedback</td><td>Evaluate impact, refine requirements, improve processes</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Threat-Informed Defense -->
+    <section id="defense" class="content-section">
+      <div class="section-header">
+        <div class="section-icon"><i class="fas fa-shield-hogwarts"></i></div>
+        <h2>Threat-Informed Defense Strategy</h2>
+      </div>
+      <div class="card">
+        <div class="two-column">
+          <div class="info-box"><strong>Dynamic Defensive Measures</strong>Configure SIEM rules based on current intel. Update endpoint protection.</div>
+          <div class="info-box"><strong>Adversary Simulation</strong>Regular red team exercises using latest TTPs.</div>
+          <div class="info-box"><strong>Detection Engineering</strong>Create Sigma and YARA rules from intelligence.</div>
+          <div class="info-box"><strong>Vulnerability Management</strong>Prioritize patching based on active threat intelligence.</div>
+        </div>
+        <div style="margin-top: 0.8rem; background: #e8f5e9; padding: 0.8rem; border-radius: 12px; font-size: 0.9rem;">
+          <i class="fas fa-check-circle"></i> <strong>Summary:</strong> By systematically collecting, analyzing, and acting on threat intelligence, this CTI framework provides organizations with the tools and strategies necessary to stay ahead of adversaries.
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Callout Box (like LLM Security Playbook) -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: #f8fafd; border-radius: 20px;">
+      <p style="margin-bottom: 0.8rem;">📚 This is an overview of the complete Cyber Threat Intelligence (CTI) Framework.</p>
+      <a href="https://www.mukeshkumarsingh.com/Cyber-Threat-Intelligence-CTI-Framework/index.html" target="_blank" style="background: #1a6d8f; color: white; padding: 0.6rem 1.5rem; border-radius: 40px; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500;">
+        <i class="fas fa-book-open"></i> Access the Full Original Framework
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-content">
+    <span>© 2025 Mukesh Kumar Singh — Cyber Threat Intelligence Framework</span>
+    <div class="social-links">
+      <a href="https://github.com/MukeshKumarSingh1" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const mobileBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (mobileBtn) {
+    mobileBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+</script>
+
+</body>
+</html>
