@@ -1,0 +1,94 @@
+:root{--ink:#0b0b0b;--paper:#f5f3ee;--soft:#e5e1d8;--muted:#66625b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.journal-header{height:80px;padding:0 clamp(22px,5vw,80px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #bbb7af;position:sticky;top:0;background:rgba(245,243,238,.94);backdrop-filter:blur(14px);z-index:30}
+.mark{font:600 28px "Cormorant Garamond",serif;letter-spacing:.12em}
+.mark span{color:#777}
+.journal-header nav{display:flex;gap:30px}
+.journal-header nav a,.journal-header button{text-transform:uppercase;letter-spacing:.12em;font-size:9px}
+.journal-header nav a[aria-current=page]{border-bottom:1px solid;padding-bottom:5px}
+.journal-header button{display:none;border:0;background:none}
+main{max-width:1500px;margin:auto;padding:0 clamp(22px,5vw,80px)}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:9px}
+.journal-hero{min-height:calc(100vh - 80px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,.52fr) 110px;gap:6vw;align-items:end;padding:clamp(80px,11vw,165px) 0 55px;border-bottom:1px solid}
+.journal-hero h1{font:500 clamp(82px,12.2vw,178px)/.72 "Cormorant Garamond",serif;letter-spacing:-.06em;margin:35px 0 0}
+.journal-hero h1 em{font-weight:400}
+.hero-note{padding-bottom:15px}
+.hero-note p{font:500 clamp(21px,2vw,29px)/1.35 "Cormorant Garamond",serif}
+.hero-note a,.author a{display:inline-block;margin-top:28px;padding-bottom:8px;border-bottom:1px solid;text-transform:uppercase;letter-spacing:.12em;font-size:9px}
+.issue{border-left:1px solid #bbb7af;padding-left:24px;display:flex;flex-direction:column;text-transform:uppercase;letter-spacing:.12em;font-size:8px}
+.issue strong{font:500 70px "Cormorant Garamond",serif;letter-spacing:-.04em;margin:8px 0}
+.topic-line{display:flex;justify-content:space-between;gap:28px;overflow:auto;border-bottom:1px solid #bbb7af;padding:18px 0;text-transform:uppercase;letter-spacing:.13em;font-size:8px;white-space:nowrap}
+.latest{display:grid;grid-template-columns:150px minmax(0,920px);justify-content:center;gap:clamp(35px,7vw,110px);padding:clamp(90px,11vw,165px) 0;border-bottom:1px solid}
+.rail{display:flex;flex-direction:column;gap:12px;text-transform:uppercase;letter-spacing:.14em;font-size:8px;color:var(--muted);padding-top:12px}
+.latest article header{border-bottom:1px solid #bbb7af;padding-bottom:55px}
+.latest h2{font:500 clamp(62px,8vw,118px)/.82 "Cormorant Garamond",serif;letter-spacing:-.045em;margin:35px 0}
+.deck{font:500 clamp(20px,2vw,28px)/1.45 "Cormorant Garamond",serif;max-width:760px;color:var(--muted)}
+.article-body{max-width:760px;padding:60px 0}
+.article-body p{font-size:15px;line-height:1.9;color:#3e3b36}
+.article-body .lead{font:500 30px/1.4 "Cormorant Garamond",serif;color:var(--ink)}
+.article-body h3{font:500 45px/1 "Cormorant Garamond",serif;margin:70px 0 22px}
+.article-body blockquote{font:500 34px/1.25 "Cormorant Garamond",serif;border-top:1px solid;border-bottom:1px solid;margin:65px 0 0;padding:35px 0}
+.notebook{padding:clamp(90px,11vw,150px) 0}
+.notebook-title{display:grid;grid-template-columns:.55fr 1.2fr .6fr;gap:5vw;align-items:end}
+.notebook-title h2{font:500 clamp(60px,7vw,100px)/.85 "Cormorant Garamond",serif;letter-spacing:-.04em;margin:0}
+.notebook-title>p:last-child{color:var(--muted);line-height:1.7}
+.journal-tools{display:grid;grid-template-columns:1fr 1.25fr;gap:8vw;margin:75px 0 25px;border-top:1px solid #bbb7af;padding-top:28px}
+.journal-tools label span{display:block;text-transform:uppercase;letter-spacing:.12em;font-size:8px}
+.journal-tools input{width:100%;border:0;border-bottom:1px solid #bbb7af;background:none;padding:13px 0;font:500 25px "Cormorant Garamond",serif;outline:0}
+.filters{display:flex;gap:7px;align-items:end;overflow:auto}
+.filters button{white-space:nowrap;border:1px solid #bbb7af;background:none;padding:9px 12px;text-transform:uppercase;letter-spacing:.08em;font-size:8px;cursor:pointer}
+.filters button.active,.filters button:hover{background:#111;color:#fff}
+.entries{border-top:1px solid}
+.entries article{display:grid;grid-template-columns:185px 1fr minmax(200px,.55fr) 110px;gap:35px;padding:35px 0;border-bottom:1px solid #bbb7af}
+.entries article>div{display:flex;flex-direction:column;gap:8px;text-transform:uppercase;letter-spacing:.1em;font-size:8px;color:var(--muted)}
+.entries h3{font:500 clamp(28px,3vw,42px)/1.03 "Cormorant Garamond",serif;margin:0}
+.entries p{font-size:12px;line-height:1.7;color:var(--muted);margin:3px 0}
+.entries a{font-size:8px;text-transform:uppercase;letter-spacing:.1em;margin-top:6px}
+.author{background:#111;color:#fff;padding:clamp(65px,9vw,125px);margin-bottom:100px}
+.author h2{font:500 clamp(65px,9vw,130px)/.8 "Cormorant Garamond",serif;letter-spacing:-.045em;margin:45px 0}
+.author>p:not(.eyebrow){max-width:760px;color:#aaa;line-height:1.8}
+footer{background:#111;color:#fff;padding:48px clamp(22px,5vw,80px);display:grid;grid-template-columns:1fr auto;gap:28px}
+.footer-name{font:500 29px "Cormorant Garamond",serif}
+footer div{display:flex;gap:22px;flex-wrap:wrap;font-size:9px;text-transform:uppercase;letter-spacing:.1em}
+footer p{grid-column:1/-1;color:#777;font-size:9px}
+@media(max-width:950px){.journal-hero{grid-template-columns:1fr 1fr}
+.hero-title{grid-column:1/-1}
+.issue{grid-column:2}
+.latest{grid-template-columns:100px 1fr}
+.notebook-title{grid-template-columns:1fr 2fr}
+.notebook-title>p:last-child{grid-column:2}
+.journal-tools{grid-template-columns:1fr}
+.entries article{grid-template-columns:150px 1fr}
+.entries article>p,.entries article>a{grid-column:2}
+}
+@media(max-width:650px){.journal-header button{display:block}
+.journal-header nav{display:none;position:absolute;top:79px;left:0;right:0;background:var(--paper);padding:25px;flex-direction:column;border-bottom:1px solid}
+.journal-header nav.open{display:flex}
+.journal-hero{grid-template-columns:1fr;min-height:auto}
+.journal-hero h1{font-size:76px}
+.hero-title,.issue{grid-column:1}
+.latest{grid-template-columns:1fr}
+.rail{flex-direction:row}
+.notebook-title{grid-template-columns:1fr}
+.notebook-title>p:last-child{grid-column:1}
+.entries article{grid-template-columns:1fr;gap:14px}
+.entries article>p,.entries article>a{grid-column:1}
+footer{grid-template-columns:1fr}
+}
+.hero-read{display:inline-block;margin-top:26px;padding-bottom:8px;border-bottom:1px solid;text-transform:uppercase;letter-spacing:.12em;font-size:9px}
+.essay-page{max-width:1500px;margin:auto;padding:0 clamp(22px,5vw,80px)}
+.essay-hero{padding:clamp(90px,11vw,160px) 0 70px;border-bottom:1px solid}
+.essay-hero h1{font:500 clamp(64px,9vw,132px)/.82 "Cormorant Garamond",serif;letter-spacing:-.05em;max-width:1260px;margin:38px 0}
+.essay-hero>p:not(.eyebrow){font:500 clamp(20px,2.3vw,32px)/1.35 "Cormorant Garamond",serif;color:var(--muted);max-width:780px}
+.essay-meta{display:flex;gap:25px;flex-wrap:wrap;margin-top:45px;text-transform:uppercase;letter-spacing:.12em;font-size:8px;color:var(--muted)}
+.essay-body{max-width:790px;margin:auto;padding:clamp(75px,9vw,125px) 0}
+.essay-body p,.essay-body li{font-size:15px;line-height:1.9;color:#3e3b36}
+.essay-body .lead{font:500 30px/1.4 "Cormorant Garamond",serif;color:var(--ink)}
+.essay-body h2{font:500 clamp(38px,4vw,54px)/1 "Cormorant Garamond",serif;margin:70px 0 22px}
+.essay-body ul{padding-left:20px}.essay-body li{margin:10px 0}
+.notably{border-top:1px solid;border-bottom:1px solid;margin:75px 0;padding:0 0 35px}.notably h2{margin-top:35px}
+.sources{margin:65px 0}.sources a{border-bottom:1px solid}
+.essay-nav{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid;border-bottom:1px solid;margin-top:70px}.essay-nav a{padding:25px 0;font:500 20px "Cormorant Garamond",serif}.essay-nav a:last-child{text-align:right}
